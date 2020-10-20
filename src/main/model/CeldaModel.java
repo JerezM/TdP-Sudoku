@@ -2,37 +2,44 @@ package main.model;
 
 import javax.swing.ImageIcon;
 
-import main.model.entidadesGraficas.EntidadGraficaState;
+/**
+ * Interfaz para la clase CeldaModel, se encarga de representar la logica de cada celda del sudoku.
+ * @author Martin Jerez
+ */
+public interface CeldaModel {
 
-public class CeldaModel {
-	private Integer valor;
-	private EntidadGraficaState entidadGrafica;
-	
-	public CeldaModel(Integer valorInicial, EntidadGraficaState entidadGraficaInicial) {
-		this.valor = valorInicial;
-		this.entidadGrafica = entidadGraficaInicial;
-		this.entidadGrafica.setCeldaModel(this);
-	}
-	
-	public void actualizarValor(int valorNuevo){
-		valor = valorNuevo;
-		entidadGrafica.actualizarValor(valorNuevo);
-	}
+    /**
+     * Actualiza el valor actual de la celda por el valor parametrizado.
+     * @param valorNuevo Nuevo valor que va a tener la celda.
+     */
+    public void actualizarValor(int valorNuevo);
 
-    public void actualizarSprite(int estadoNuevo){
-		entidadGrafica.actualizarSprite(estadoNuevo);
-	}
+    /**
+     * Actualiza el estado actual de la celda por el valor parametrizado, lo cual se ve reflejado en el sprite.
+     * @param estadoNuevo Nuevo estado que va a tener la celda.
+     */
+    public void actualizarSprite(int estadoNuevo);
 
-	public ImageIcon getSpriteIcon(){
-		return entidadGrafica.getSpriteIcon();
-	}
+    /**
+     * Actualiza el estado actual de la celda para demostrar que fue seleccionada indirectamente,
+     * el cual se ve reflejado en el sprite.
+     */
+    public void fuisteSeleccionada();
 
-	public void cambiarEntidadGrafica(EntidadGraficaState entidadGrafica) {
-		this.entidadGrafica = entidadGrafica;
-	}
+    /**
+     * Notifica a TableroModel de un cambio en el estado interno de la clase.
+     */
+    public void notificarCambioATablero();  
 
-	public Integer getValor() {
-		return this.valor;
-	}
- 
+    /**
+     * Consulta el sprite actual de la celda.
+     * @return Sprite que representa el estado interno de la celda.
+     */
+	public ImageIcon getSpriteIcon();
+
+    /**
+     * Consulta el valor actual de la celda.
+     * @return Valor actual de la celda.
+     */
+	public int getValor();
 }
