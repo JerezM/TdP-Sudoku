@@ -1,6 +1,6 @@
 package main.model.tablero;
 
-import main.controller.TableroControllerModel;
+import main.controller.tablero.TableroControllerModel;
 import main.model.factories.CeldaModelFactory;
 
 public interface TableroModel {

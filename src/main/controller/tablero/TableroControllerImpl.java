@@ -1,4 +1,4 @@
-package main.controller;
+package main.controller.tablero;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import main.model.CeldaModel;
 import main.model.tablero.TableroModelController;
 import main.model.tablero.TableroModelImpl;
 
-public class TableroControllerImpl implements TableroControllerView, TableroControllerModel {
+public class TableroControllerImpl implements TableroControllerView, TableroControllerModel, TableroController {
     private static TableroControllerImpl instance;
     private TableroModelController tableroModel;
     // private TableroView tableroView;

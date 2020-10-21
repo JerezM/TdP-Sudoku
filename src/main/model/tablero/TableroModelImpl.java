@@ -3,7 +3,7 @@ package main.model.tablero;
 import java.util.LinkedList;
 import java.util.List;
 
-import main.controller.TableroControllerModel;
+import main.controller.tablero.TableroControllerModel;
 import main.model.CeldaModel;
 import main.model.factories.CeldaModelFactory;
 

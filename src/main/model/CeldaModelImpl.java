@@ -19,6 +19,7 @@ public class CeldaModelImpl implements CeldaModel {
 		this.posX = posX;
 		this.posY = posY;
 		tablero = TableroModelImpl.getInstance();
+		
 	}
 	
 	@Override
