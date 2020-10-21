@@ -24,12 +24,7 @@ public interface CeldaModel {
      * Actualiza el estado actual de la celda para demostrar que fue seleccionada indirectamente,
      * el cual se ve reflejado en el sprite.
      */
-    public void fuisteSeleccionada();
-
-    /**
-     * Notifica a TableroModel de un cambio en el estado interno de la clase.
-     */
-    public void notificarCambioATablero();  
+    public void actualizarSpriteSeleccionada(); 
 
     /**
      * Consulta el sprite actual de la celda.

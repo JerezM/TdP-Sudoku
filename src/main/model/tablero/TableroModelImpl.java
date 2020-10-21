@@ -1,15 +1,16 @@
-package main.model;
+package main.model.tablero;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import main.controller.TableroController;
+import main.controller.TableroControllerModel;
+import main.model.CeldaModel;
 import main.model.factories.CeldaModelFactory;
 
-public class TableroModelImpl implements TableroModel {
+public class TableroModelImpl implements TableroModelController, TableroModelCelda, TableroModel {
     private static TableroModelImpl instance;
 
-    private TableroController controller;
+    private TableroControllerModel controller;
     private CeldaModelFactory celdaFactory;
 
     private CeldaModel[][] tableroCeldas;
@@ -18,7 +19,7 @@ public class TableroModelImpl implements TableroModel {
 
     private TableroModelImpl() {}
 
-    public static TableroModel getInstance() {
+    public static TableroModelImpl getInstance() {
         if (instance == null) {
             instance = new TableroModelImpl();
         }
@@ -57,7 +58,23 @@ public class TableroModelImpl implements TableroModel {
     }
 
     @Override
-    public List<CeldaModel> actualizarSeleccionadas(int posX, int posY) {
+    public void verificarTablero() {
+
+    }
+
+    @Override
+    public void notificarCambioEnCelda(int posX, int posY) {
+        List<CeldaModel> celdas = this.actualizarSeleccionadas(posX, posY);
+        this.notificarCambios(celdas);
+    }
+
+    /**
+     * Actualiza los sprites de toda la fila, columna y panel de la celda ubicada en la posicion parametrizada.
+     * @param posX posicion en el eje X de la celda en cuestion.
+     * @param posY posicion en el eje X de la celda en cuestion.
+     * @return Una lista con las celdas las cuales recibieron cambios en su estado.
+     */
+    protected List<CeldaModel> actualizarSeleccionadas(int posX, int posY) {
         List<CeldaModel> celdas = new LinkedList<CeldaModel>();
 
         //Seleccionar fila
@@ -68,19 +85,16 @@ public class TableroModelImpl implements TableroModel {
         return celdas;
     }
 
-    @Override
-    public void notificarCambioEnCelda(int posX, int posY) {
-        List<CeldaModel> celdas = this.actualizarSeleccionadas(posX, posY);
-        this.notificarCambios(celdas);
-    }
-
-    @Override
-    public void notificarCambios(List<CeldaModel> celdas) {
+    /**
+     * Notifica al TableroController de los cambios en los estados de las celdas parametrizadas.
+     * @param celdas Colleccion de celdas en las cuales se notificaron cambios.
+     */
+    protected void notificarCambios(List<CeldaModel> celdas) {
         controller.notificarCambios(celdas);
     }
 
     @Override
-    public void setController(TableroController controller) {
+    public void setController(TableroControllerModel controller) {
         this.controller = controller;
 
     }

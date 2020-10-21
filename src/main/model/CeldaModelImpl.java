@@ -3,14 +3,15 @@ package main.model;
 import javax.swing.ImageIcon;
 
 import main.model.entidadesGraficas.EntidadGrafica;
+import main.model.tablero.TableroModelCelda;
+import main.model.tablero.TableroModelImpl;
 
 public class CeldaModelImpl implements CeldaModel {
-
-
+	
 	private int valor;
 	private EntidadGrafica entidadGrafica;
 	private int posX, posY;
-	private TableroModel tablero;
+	private TableroModelCelda tablero;
 	
 	public CeldaModelImpl(Integer valorInicial, EntidadGrafica entidadGraficaInicial, int posX, int posY) {
 		this.valor = valorInicial;
@@ -34,13 +35,15 @@ public class CeldaModelImpl implements CeldaModel {
 	}
 
 	@Override
-	public void fuisteSeleccionada() {
+	public void actualizarSpriteSeleccionada() {
 		int seleccionadaIndirectamente = 1;
 		entidadGrafica.actualizarSprite(seleccionadaIndirectamente);
 	}
 
-	@Override
-	public void notificarCambioATablero() {
+	/**
+     * Notifica a TableroModel de un cambio en el estado interno de la clase.
+     */
+	protected void notificarCambioATablero() {
 		tablero.notificarCambioEnCelda(posX, posY);
 	}
 
