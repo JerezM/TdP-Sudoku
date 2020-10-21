@@ -1,2 +1,5 @@
 #Ignore the lib folder
 lib/
+
+#Ignore the .plantuml file
+*.plantuml
