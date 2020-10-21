@@ -2,6 +2,8 @@ package main.model.tablero;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import main.controller.tablero.TableroControllerModel;
 import main.model.CeldaModel;
@@ -15,6 +17,8 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
 
     private CeldaModel[][] tableroCeldas;
     private int[][] tableroNumeros;
+
+    private Map<Integer, Entry<Integer, Integer>> paneles;
     
 
     private TableroModelImpl() {}
@@ -58,8 +62,10 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
     }
 
     @Override
-    public void verificarTablero() {
+    public boolean verificarTablero() {
+        boolean esCorrecto = true;
 
+        return esCorrecto;
     }
 
     @Override
@@ -76,13 +82,59 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
      */
     protected List<CeldaModel> actualizarSeleccionadas(int posX, int posY) {
         List<CeldaModel> celdas = new LinkedList<CeldaModel>();
+        this.inicializarMedidasPaneles();
+
+        int inicioPanelX = paneles.get(posX).getKey();
+        int finPanelX = paneles.get(posX).getValue();
+        int inicioPanelY = paneles.get(posY).getKey();
+        int finPanelY = paneles.get(posY).getValue();
 
         //Seleccionar fila
-        //Seleccionar columna
-        //Seleccionar panel
+        for (int i = 0; i < tableroCeldas.length; i++) {
+            if (i < inicioPanelX || i > finPanelX) {
+                CeldaModel celdaActual = tableroCeldas[i][posY];
+                celdaActual.actualizarSpriteSeleccionada();
 
+                celdas.add(celdaActual);
+            }
+        }
+
+        //Seleccionar columna
+        for (int j = 0; j < tableroCeldas[0].length; j++) {
+            if (j < inicioPanelY || j > finPanelY) {
+                CeldaModel celdaActual = tableroCeldas[posX][j];
+                celdaActual.actualizarSpriteSeleccionada();
+
+                celdas.add(celdaActual);
+            }
+        }
+
+        //Seleccionar panel
+        for (int k = inicioPanelX; k <= finPanelX; k++) {
+            for (int l = inicioPanelY; l <= finPanelY; l++) {
+                CeldaModel celdaActual = tableroCeldas[k][l];
+                celdaActual.actualizarSpriteSeleccionada();
+
+                celdas.add(celdaActual);
+            }
+        }
 
         return celdas;
+    }
+
+    /**
+     * Se encarga de llenar el mapeo de paneles con las coordenadas de los mismos.
+     */
+    protected void inicializarMedidasPaneles(){
+        paneles.put(0, new EntryImpl<Integer, Integer>(0, 2));
+        paneles.put(1, new EntryImpl<Integer, Integer>(0, 2));
+        paneles.put(2, new EntryImpl<Integer, Integer>(0, 2));
+        paneles.put(3, new EntryImpl<Integer, Integer>(3, 5));
+        paneles.put(4, new EntryImpl<Integer, Integer>(3, 5));
+        paneles.put(5, new EntryImpl<Integer, Integer>(3, 5));
+        paneles.put(6, new EntryImpl<Integer, Integer>(6, 8));
+        paneles.put(7, new EntryImpl<Integer, Integer>(6, 8));
+        paneles.put(8, new EntryImpl<Integer, Integer>(6, 8));
     }
 
     /**
