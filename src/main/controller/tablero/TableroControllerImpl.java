@@ -27,7 +27,10 @@ public class TableroControllerImpl implements TableroControllerView, TableroCont
 
     @Override
     public void cargarTableroDesdeArchivo() throws SudokuFileException {
-
+        int[][] tableroNumerico = this.fileToMatrix();
+        tableroNumerico = this.sudokuGenerator(tableroNumerico);
+        
+        tableroModel.cargarTablero(tableroNumerico);
     }
 
     @Override
@@ -42,7 +45,7 @@ public class TableroControllerImpl implements TableroControllerView, TableroCont
 
     @Override
     public void verificarTablero() {
-
+        tableroModel.verificarTablero();
     }
 
     @Override
