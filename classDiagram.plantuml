@@ -1,0 +1,4 @@
+@startuml Sudoku
+class Foo1 implements Foo
+
+@enduml
