@@ -1,4 +1,4 @@
-package main.model.tablero;
+package main.service;
 
 import java.util.Map.Entry;
 

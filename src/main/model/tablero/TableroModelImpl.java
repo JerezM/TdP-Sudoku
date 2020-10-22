@@ -8,6 +8,9 @@ import java.util.Map.Entry;
 import main.controller.tablero.TableroControllerModel;
 import main.model.CeldaModel;
 import main.model.factories.CeldaModelFactory;
+import main.service.EntryImpl;
+import main.service.VerificadorTableroService;
+import main.service.VerificadorTableroServiceImpl;
 
 public class TableroModelImpl implements TableroModelController, TableroModelCelda, TableroModel {
     private static TableroModelImpl instance;
@@ -63,7 +66,9 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
 
     @Override
     public boolean verificarTablero() {
-        boolean esCorrecto = true;
+        VerificadorTableroService verificador = new VerificadorTableroServiceImpl();
+
+        boolean esCorrecto = verificador.verificarTablero(tableroNumeros);
 
         return esCorrecto;
     }
