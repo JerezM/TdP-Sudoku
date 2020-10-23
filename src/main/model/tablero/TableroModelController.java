@@ -27,8 +27,7 @@ public interface TableroModelController {
 
     /**
      * Comprueba si el tablero posee un estado completo y correcto.
-     * @return True en caso de que el tablero es completado correctamente, False en caso contrario.
      */
-    public boolean verificarTablero();
+    public void verificarTablero();
     
 }

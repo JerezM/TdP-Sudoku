@@ -5,12 +5,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.swing.ImageIcon;
+
 import main.controller.tablero.TableroControllerModel;
-import main.model.CeldaModel;
-import main.model.factories.CeldaModelFactory;
+import main.model.celda.CeldaModel;
+import main.model.celda.factories.CeldaModelFactory;
 import main.service.EntryImpl;
-import main.service.VerificadorTableroService;
-import main.service.VerificadorTableroServiceImpl;
+import main.service.EstadosPosiblesCeldas;
+import main.service.verificador_tablero.VerificadorTableroService;
+import main.service.verificador_tablero.VerificadorTableroServiceImpl;
 
 public class TableroModelImpl implements TableroModelController, TableroModelCelda, TableroModel {
     private static TableroModelImpl instance;
@@ -20,8 +23,10 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
 
     private CeldaModel[][] tableroCeldas;
     private int[][] tableroNumeros;
+    private int[][] tableroEstadoInicial;
 
     private Map<Integer, Entry<Integer, Integer>> paneles;
+    private List<Entry<Integer, Integer>> ultimasCeldasErroneas;
     
 
     private TableroModelImpl() {}
@@ -37,6 +42,8 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
     @Override
     public void cargarTablero(int[][] tablero) {
         tableroNumeros = tablero;
+        tableroEstadoInicial = tablero;
+
         int rows = tableroNumeros.length;
         int columns = tableroNumeros[0].length;
 
@@ -51,6 +58,26 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
             }
         }
 
+        ultimasCeldasErroneas = new LinkedList<Entry<Integer, Integer>>();
+    }
+
+    @Override
+    public void verificarTablero() {
+        VerificadorTableroService verificador = new VerificadorTableroServiceImpl();
+
+        Entry<Boolean, List<Entry<Integer, Integer>>> e = verificador.verificarTablero(tableroNumeros, tableroEstadoInicial);
+        boolean esCorrecto = e.getKey();
+
+        this.notificarVerificacionTablero(esCorrecto);
+
+        if(!esCorrecto){//En caso de ser incorrecto se encarga de marcar las celdas con errores y notificar de las mismas al controller.
+            ultimasCeldasErroneas = e.getValue();
+            int estadoError = EstadosPosiblesCeldas.CELDA_EN_ERROR.getEstado();
+
+            List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas = this.actualizarSpriteSeleccionadas(ultimasCeldasErroneas, estadoError);
+            this.notificarCambios(celdas);
+        }
+        
     }
 
     @Override
@@ -65,28 +92,25 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
     }
 
     @Override
-    public boolean verificarTablero() {
-        VerificadorTableroService verificador = new VerificadorTableroServiceImpl();
+    public void notificarCambioEnCelda(int posX, int posY, int estado) {
+        List<Entry<Entry<Integer, Integer>, ImageIcon>> celdasActualizadas = this.actualizarSpriteSeleccionadasIndirec(posX, posY, estado);
 
-        boolean esCorrecto = verificador.verificarTablero(tableroNumeros);
+        ImageIcon spriteCelda = (tableroCeldas[posX][posY]).getSpriteIcon();
+        Entry<Integer, Integer> coordenadasXY = new EntryImpl<Integer, Integer>(posX, posY);
+        celdasActualizadas.add( new EntryImpl<Entry<Integer, Integer>, ImageIcon>(coordenadasXY, spriteCelda) );
 
-        return esCorrecto;
-    }
-
-    @Override
-    public void notificarCambioEnCelda(int posX, int posY) {
-        List<CeldaModel> celdas = this.actualizarSeleccionadas(posX, posY);
-        this.notificarCambios(celdas);
+        this.notificarCambios(celdasActualizadas);
     }
 
     /**
      * Actualiza los sprites de toda la fila, columna y panel de la celda ubicada en la posicion parametrizada.
-     * @param posX posicion en el eje X de la celda en cuestion.
-     * @param posY posicion en el eje X de la celda en cuestion.
-     * @return Una lista con las celdas las cuales recibieron cambios en su estado.
+     * @param posX Posicion en el eje X de la celda en cuestion.
+     * @param posY Posicion en el eje X de la celda en cuestion.
+     * @param estado Estado que recibiran las celdas. 
+     * @return Una lista con las coordenadas de las celdas las cuales recibieron cambios en su estado, junto con su nuevo sprite.
      */
-    protected List<CeldaModel> actualizarSeleccionadas(int posX, int posY) {
-        List<CeldaModel> celdas = new LinkedList<CeldaModel>();
+    protected List<Entry<Entry<Integer, Integer>, ImageIcon>> actualizarSpriteSeleccionadasIndirec(int posX, int posY, int estado) {
+        List<Entry<Integer, Integer>> celdas = new LinkedList<Entry<Integer, Integer>>();
         this.inicializarMedidasPaneles();
 
         int inicioPanelX = paneles.get(posX).getKey();
@@ -97,34 +121,86 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
         //Seleccionar fila
         for (int i = 0; i < tableroCeldas.length; i++) {
             if (i < inicioPanelX || i > finPanelX) {
-                CeldaModel celdaActual = tableroCeldas[i][posY];
-                celdaActual.actualizarSpriteSeleccionada();
 
-                celdas.add(celdaActual);
+                Entry<Integer, Integer> celdaActualCoordenadas = new EntryImpl<Integer, Integer>(i, posY);
+                celdas.add(celdaActualCoordenadas);
             }
         }
 
         //Seleccionar columna
         for (int j = 0; j < tableroCeldas[0].length; j++) {
             if (j < inicioPanelY || j > finPanelY) {
-                CeldaModel celdaActual = tableroCeldas[posX][j];
-                celdaActual.actualizarSpriteSeleccionada();
-
-                celdas.add(celdaActual);
+                
+                Entry<Integer, Integer> celdaActualCoordenadas = new EntryImpl<Integer, Integer>(posX, j);
+                celdas.add(celdaActualCoordenadas);
             }
         }
 
         //Seleccionar panel
         for (int k = inicioPanelX; k <= finPanelX; k++) {
             for (int l = inicioPanelY; l <= finPanelY; l++) {
-                CeldaModel celdaActual = tableroCeldas[k][l];
-                celdaActual.actualizarSpriteSeleccionada();
-
-                celdas.add(celdaActual);
+                
+                Entry<Integer, Integer> celdaActualCoordenadas = new EntryImpl<Integer, Integer>(k, l);
+                celdas.add(celdaActualCoordenadas);
             }
         }
 
-        return celdas;
+        if(!ultimasCeldasErroneas.isEmpty()) {
+            int estadoNoSeleccionada = EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado();
+            this.actualizarSpriteSeleccionadas(ultimasCeldasErroneas, estadoNoSeleccionada);
+            ultimasCeldasErroneas.clear();
+        }
+        
+        return this.actualizarSpriteSeleccionadas(celdas, estado);
+    }
+
+    /**
+     * Actualiza las celdas parametrizadas con el estado indicado.
+     * @param celdas Lista de coordenadas con las celdas a modificar.
+     * @param estado Estado a establecer en las celdas indicadas.
+     */
+    protected List<Entry<Entry<Integer, Integer>, ImageIcon>> actualizarSpriteSeleccionadas(List<Entry<Integer, Integer>> celdas, int estado){
+        List<Entry<Entry<Integer, Integer>, ImageIcon>> celdasActualizadas = new LinkedList<Entry<Entry<Integer, Integer>, ImageIcon>>();
+        
+        for (Entry<Integer, Integer> coordenadas : celdas) {
+            int posX = coordenadas.getKey();
+            int posY = coordenadas.getValue();
+
+            tableroCeldas[posX][posY].actualizarSpriteSeleccionada(estado);
+
+            ImageIcon sprite =  tableroCeldas[posX][posY].getSpriteIcon();
+
+            celdasActualizadas.add( new EntryImpl<Entry<Integer, Integer>, ImageIcon>(coordenadas, sprite) );
+        }
+
+        return celdasActualizadas;
+    }
+
+    /**
+     * Notifica al TableroController de los cambios en los estados de las celdas parametrizadas.
+     * @param celdas Colleccion de celdas en las cuales se notificaron cambios.
+     */
+    protected void notificarCambios(List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas) {
+        controller.notificarCambios(celdas);
+    }
+
+    /**
+     * Le notifica al tableroController de si el tablero actual se encuentra en un estado ganador, o si contiene errores.
+     * @param resultado True en caso de ser un tablero completo y correcto, Falso en caso de contener errores.
+     */
+    protected void notificarVerificacionTablero(boolean resultado) {
+        controller.notificarVerificacionTablero(resultado);
+    }
+
+    @Override
+    public void setController(TableroControllerModel controller) {
+        this.controller = controller;
+
+    }
+
+    @Override
+    public void setCeldaFactory(CeldaModelFactory factory) {
+        celdaFactory = factory;
     }
 
     /**
@@ -141,24 +217,4 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
         paneles.put(7, new EntryImpl<Integer, Integer>(6, 8));
         paneles.put(8, new EntryImpl<Integer, Integer>(6, 8));
     }
-
-    /**
-     * Notifica al TableroController de los cambios en los estados de las celdas parametrizadas.
-     * @param celdas Colleccion de celdas en las cuales se notificaron cambios.
-     */
-    protected void notificarCambios(List<CeldaModel> celdas) {
-        controller.notificarCambios(celdas);
-    }
-
-    @Override
-    public void setController(TableroControllerModel controller) {
-        this.controller = controller;
-
-    }
-
-    @Override
-    public void setCeldaFactory(CeldaModelFactory factory) {
-        celdaFactory = factory;
-    }
-
 }

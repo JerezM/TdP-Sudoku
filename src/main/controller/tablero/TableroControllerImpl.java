@@ -1,9 +1,11 @@
 package main.controller.tablero;
 
 import java.util.List;
+import java.util.Map.Entry;
+
+import javax.swing.ImageIcon;
 
 import main.exception.SudokuFileException;
-import main.model.CeldaModel;
 import main.model.tablero.TableroModelController;
 import main.model.tablero.TableroModelImpl;
 
@@ -29,7 +31,7 @@ public class TableroControllerImpl implements TableroControllerView, TableroCont
     public void cargarTableroDesdeArchivo() throws SudokuFileException {
         int[][] tableroNumerico = this.fileToMatrix();
         tableroNumerico = this.sudokuGenerator(tableroNumerico);
-        
+
         tableroModel.cargarTablero(tableroNumerico);
     }
 
@@ -49,27 +51,40 @@ public class TableroControllerImpl implements TableroControllerView, TableroCont
     }
 
     @Override
-    public void notificarCambios(List<CeldaModel> celdas) {
+    public void notificarCambios(List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void notificarVerificacionTablero(boolean resultado) {
+        // TODO Auto-generated method stub
 
     }
 
     /**
-     * Recibe un archivo el cual contiene la representacion del tablero y lo transforma en una matriz de enteros.
+     * Recibe un archivo el cual contiene la representacion del tablero y lo
+     * transforma en una matriz de enteros.
+     * 
      * @return Una matriz de entero que representa un tablero de sudoku completo.
-     * @throws SudokuFileException Se lanza si el archivo no cumple la sintaxis o el tablero interno es incorrecto.
+     * @throws SudokuFileException Se lanza si el archivo no cumple la sintaxis o el
+     *                             tablero interno es incorrecto.
      */
     protected int[][] fileToMatrix() throws SudokuFileException {
-        
+
         return null;
     }
 
     /**
-     * Recibe una matriz que representa un tablero completo y la procesa en una matriz incompleta en la cual es posible jugar.
+     * Recibe una matriz que representa un tablero completo y la procesa en una
+     * matriz incompleta en la cual es posible jugar.
+     * 
      * @param tableroCompleto Matriz a procesar.
      * @return Una matriz que representa un tablero incompleto.
      */
     protected int[][] sudokuGenerator(int[][] tableroCompleto) {
-        
+
         return null;
     }
+
 }
