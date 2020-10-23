@@ -1,6 +1,7 @@
-package main.service;
+package main.service.verificador_tablero;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -30,7 +31,7 @@ public class VerificadorTableroServiceImpl implements VerificadorTablero {
 
         this.setNumerosRepetidos();
         
-        paneles.put(new EntryImpl(), value)
+       // paneles.put(new EntryImpl(), value)
     }
 
     private void setNumerosRepetidos() {
@@ -40,35 +41,35 @@ public class VerificadorTableroServiceImpl implements VerificadorTablero {
     }
 
 	@Override
-	public boolean verificarTablero(int[][] matriz) {
-        boolean esCorrecto = verificarFilas(matriz);
+	public Entry<Boolean, List<Entry<Integer, Integer>>> verificarTablero(int[][] matrizActual, int[][] matrizInicial) {
+        boolean esCorrecto = verificarFilas(matrizActual, matrizInicial);
 
         if(esCorrecto){
-            esCorrecto = verificarColumnas(matriz);
+            esCorrecto = verificarColumnas(matrizActual, matrizInicial);
 
             if(esCorrecto) {
-                esCorrecto = verificarPaneles(matriz);
+                esCorrecto = verificarPaneles(matrizActual, matrizInicial);
             }
         }
 
-        return esCorrecto;
+        return null;
 	}
 
 	@Override
-	public boolean verificarFilas(int[][] matriz) {
+	public boolean verificarFilas(int[][] matrizActual, int[][] matrizInicial) {
         boolean esCorrecto = true;
         
 		return false;
 	}
 
 	@Override
-	public boolean verificarColumnas(int[][] matriz) {
+	public boolean verificarColumnas(int[][] matrizActual, int[][] matrizInicial) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean verificarPaneles(int[][] matriz) {
+	public boolean verificarPaneles(int[][] matrizActual, int[][] matrizInicial) {
 		// TODO Auto-generated method stub
 		return false;
 	}
