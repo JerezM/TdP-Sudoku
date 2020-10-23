@@ -1,4 +1,4 @@
-package main.model.entidadesGraficas;
+package main.model.celda.entidadesGraficas;
 
 import javax.swing.ImageIcon;
 

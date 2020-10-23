@@ -1,4 +1,4 @@
-package main.model;
+package main.model.celda;
 
 import javax.swing.ImageIcon;
 
@@ -24,7 +24,7 @@ public interface CeldaModel {
      * Actualiza el estado actual de la celda para demostrar que fue seleccionada indirectamente,
      * el cual se ve reflejado en el sprite.
      */
-    public void actualizarSpriteSeleccionada(); 
+    public void actualizarSpriteSeleccionada(int estado); 
 
     /**
      * Consulta el sprite actual de la celda.

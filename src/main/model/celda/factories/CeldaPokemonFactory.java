@@ -1,9 +1,9 @@
-package main.model.factories;
+package main.model.celda.factories;
 
-import main.model.CeldaModel;
-import main.model.CeldaModelImpl;
-import main.model.entidadesGraficas.EntidadGrafica;
-import main.model.entidadesGraficas.EntidadGraficaPokemon;
+import main.model.celda.CeldaModel;
+import main.model.celda.CeldaModelImpl;
+import main.model.celda.entidadesGraficas.EntidadGrafica;
+import main.model.celda.entidadesGraficas.EntidadGraficaPokemon;
 
 public class CeldaPokemonFactory implements CeldaModelFactory {
 

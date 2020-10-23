@@ -1,8 +1,9 @@
-package main.model;
+package main.model.celda;
 
 import javax.swing.ImageIcon;
 
-import main.model.entidadesGraficas.EntidadGrafica;
+import main.service.EstadosPosiblesCeldas;
+import main.model.celda.entidadesGraficas.EntidadGrafica;
 import main.model.tablero.TableroModelCelda;
 import main.model.tablero.TableroModelImpl;
 
@@ -25,27 +26,28 @@ public class CeldaModelImpl implements CeldaModel {
 	@Override
 	public void actualizarValor(int valorNuevo){
 		valor = valorNuevo;
+		int estado = EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado();
+
 		entidadGrafica.actualizarValor(valorNuevo);
-		this.notificarCambioATablero();
+		this.notificarCambioATablero(estado);
 	}
 
 	@Override
     public void actualizarSprite(int estadoNuevo){
 		entidadGrafica.actualizarSprite(estadoNuevo);
-		this.notificarCambioATablero();
+		this.notificarCambioATablero(estadoNuevo);
 	}
 
 	@Override
-	public void actualizarSpriteSeleccionada() {
-		int seleccionadaIndirectamente = 1;
-		entidadGrafica.actualizarSprite(seleccionadaIndirectamente);
+	public void actualizarSpriteSeleccionada(int estado) {
+		entidadGrafica.actualizarSprite(estado);
 	}
 
 	/**
      * Notifica a TableroModel de un cambio en el estado interno de la clase.
      */
-	protected void notificarCambioATablero() {
-		tablero.notificarCambioEnCelda(posX, posY);
+	protected void notificarCambioATablero(int estado) {
+		tablero.notificarCambioEnCelda(posX, posY, estado);
 	}
 
 	@Override

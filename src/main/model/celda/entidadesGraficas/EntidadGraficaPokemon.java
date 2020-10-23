@@ -1,9 +1,11 @@
-package main.model.entidadesGraficas;
+package main.model.celda.entidadesGraficas;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
+
+import main.service.EstadosPosiblesCeldas;
 
 public class EntidadGraficaPokemon implements EntidadGrafica {
     private ImageIcon spriteIcon;
@@ -35,15 +37,17 @@ public class EntidadGraficaPokemon implements EntidadGrafica {
 		spritesMap.put(8, spritesCelda8);
 		spritesMap.put(9, spritesCelda9);
 
+		int estado = EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado();
 		this.imagenes = spritesMap.get(valorCelda);
-		ImageIcon imageIcon = new ImageIcon(this.getClass().getResource(this.imagenes[0]));
+		ImageIcon imageIcon = new ImageIcon(this.getClass().getResource(this.imagenes[estado]));
 		this.spriteIcon.setImage(imageIcon.getImage());
 	}
 
 	@Override
 	public void actualizarValor(int valor) {
 		imagenes = spritesMap.get(valor);
-		this.actualizarSprite(0);
+		int estado = EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado();
+		this.actualizarSprite(estado);
 	}
 
 	@Override

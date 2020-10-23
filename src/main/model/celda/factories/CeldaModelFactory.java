@@ -1,6 +1,6 @@
-package main.model.factories;
+package main.model.celda.factories;
 
-import main.model.CeldaModel;
+import main.model.celda.CeldaModel;
 
 public interface CeldaModelFactory {
 
