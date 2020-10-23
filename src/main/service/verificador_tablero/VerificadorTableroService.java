@@ -1,7 +1,8 @@
 package main.service.verificador_tablero;
 
 import java.util.List;
-import java.util.Map.Entry;
+
+import main.service.entry.Entry;
 
 public interface VerificadorTableroService {
     
