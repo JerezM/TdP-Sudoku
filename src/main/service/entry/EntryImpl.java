@@ -1,6 +1,5 @@
-package main.service;
+package main.service.entry;
 
-import java.util.Map.Entry;
 
 public class EntryImpl<K, V> implements Entry<K, V> {
 
@@ -20,6 +19,13 @@ public class EntryImpl<K, V> implements Entry<K, V> {
     @Override
     public V getValue() {
         return value;
+    }
+
+    @Override
+    public K setKey(K key) {
+        this.key = key;
+
+        return key;
     }
 
     @Override

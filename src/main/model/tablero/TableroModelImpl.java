@@ -3,14 +3,13 @@ package main.model.tablero;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.swing.ImageIcon;
 
 import main.controller.tablero.TableroControllerModel;
 import main.model.celda.CeldaModel;
 import main.model.celda.factories.CeldaModelFactory;
-import main.service.EntryImpl;
+import main.service.entry.*;
 import main.service.EstadosPosiblesCeldas;
 import main.service.verificador_tablero.VerificadorTableroService;
 import main.service.verificador_tablero.VerificadorTableroServiceImpl;

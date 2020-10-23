@@ -1,9 +1,10 @@
 package main.controller.tablero;
 
 import java.util.List;
-import java.util.Map.Entry;
 
 import javax.swing.ImageIcon;
+
+import main.service.entry.Entry;
 
 public interface TableroControllerModel {
 

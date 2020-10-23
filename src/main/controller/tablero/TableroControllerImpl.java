@@ -1,13 +1,14 @@
 package main.controller.tablero;
 
 import java.util.List;
-import java.util.Map.Entry;
 
 import javax.swing.ImageIcon;
 
 import main.exception.SudokuFileException;
 import main.model.tablero.TableroModelController;
 import main.model.tablero.TableroModelImpl;
+
+import main.service.entry.Entry;
 
 public class TableroControllerImpl implements TableroControllerView, TableroControllerModel, TableroController {
     private static TableroControllerImpl instance;
