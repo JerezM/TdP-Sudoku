@@ -125,9 +125,9 @@ public class VerificadorTableroServiceImpl implements VerificadorTablero {
 
         for (int posX = 0; posX < matrizActual[0].length; posX++) {
             for (int posY = 0; posY < matrizActual.length; posY++) {
-                int valorCelda = matrizInicial[posY][posX];
+                int valorCelda = matrizActual[posY][posX];
 
-                if (valorCelda != 0) {//Si no es una celda del estado inicial
+                if (matrizInicial[posY][posX] != 0) {//Si no es una celda del estado inicial
 
                     if (valorCelda == 0) {//La celda esta vacia -> Error
                         setErrores.add( new EntryImpl<Integer, Integer>(posX, posY) );
@@ -169,6 +169,58 @@ public class VerificadorTableroServiceImpl implements VerificadorTablero {
         List<Entry<Integer, Integer>> listCoordenadasErrores = null;
 
         Set<Entry<Integer, Integer>> setErrores = new HashSet<Entry<Integer, Integer>>();
+
+        for (int posY = 0; posY < 3; posY++) {
+            for (int posX = 0; posX < 3; posX++) {
+                Entry<Integer, Integer> coordenadasPanelActual = new EntryImpl<Integer, Integer>(posX, posY);
+                Entry<Entry<Integer, Integer>, Entry<Integer, Integer>> inicioFinXYPanelActual = paneles.get(coordenadasPanelActual);
+                
+                Entry<Integer, Integer> coordenadasInicioFinEnX = inicioFinXYPanelActual.getKey();
+                int inicioEnX = coordenadasInicioFinEnX.getKey();
+                int finEnX = coordenadasInicioFinEnX.getValue();
+                Entry<Integer, Integer> coordenadasInicioFinEnY = inicioFinXYPanelActual.getValue();
+                int inicioEnY = coordenadasInicioFinEnY.getKey();
+                int finEnY = coordenadasInicioFinEnY.getValue();
+
+                for (int i = inicioEnY; i <= finEnY; i++) {
+                    for (int j = inicioEnX; j <= finEnX; j++) {
+                        int valorCelda = matrizActual[i][j];
+
+                        if (matrizInicial[i][j] != 0) {//Si no es una celda del estado inicial
+
+                            if (valorCelda == 0) {//La celda esta vacia -> Error
+                                setErrores.add( new EntryImpl<Integer, Integer>(j, i) );
+                                resultado = false;
+                            }       
+                            else {
+                                Entry<Boolean, List<Entry<Integer, Integer>>> entradaActual = numerosRepetidos.get(valorCelda);
+                                boolean resultadoActual = entradaActual.getKey();
+                                List<Entry<Integer, Integer>> listActual = entradaActual.getValue();
+                                Entry<Integer, Integer> coordenadasActuales = new EntryImpl<Integer, Integer>(j, i);
+
+                                if (resultadoActual && listActual.size() == 1) resultado = true;//Se repiten valores en la columna -> Error
+
+                                if (!resultadoActual) resultadoActual = true;
+                                listActual.add(coordenadasActuales);
+
+                                entradaActual.setKey(resultadoActual);
+                                entradaActual.setValue(listActual);
+
+                                numerosRepetidos.put(valorCelda, entradaActual);
+                            }
+
+                        }
+
+                    }
+                }//Fin recorrido de panel
+
+                setErrores.addAll( this.buscarErrores() );
+            }
+        
+        }//Fin recorrido de todos los paneles
+
+        listCoordenadasErrores = new LinkedList<Entry<Integer, Integer>>(setErrores);
+        erroresPaneles = new EntryImpl<Boolean, List<Entry<Integer, Integer>>>(resultado, listCoordenadasErrores);
 
         return erroresPaneles;
 	}
