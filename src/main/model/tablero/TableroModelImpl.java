@@ -53,7 +53,7 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
             for(int col = 0; col < columns; col++) {
                 valorActual = tableroNumeros[fila][col];
 
-                tableroCeldas[fila][col] = celdaFactory.createCeldaModel(fila, col, valorActual);
+                tableroCeldas[fila][col] = celdaFactory.createCeldaModel(col, fila, valorActual);
             }
         }
 
@@ -81,20 +81,20 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
 
     @Override
     public void actualizarValorCelda(int posX, int posY, int valor) {
-        tableroNumeros[posX][posY] = valor;
-        tableroCeldas[posX][posY].actualizarValor(valor);
+        tableroNumeros[posY][posX] = valor;
+        tableroCeldas[posY][posX].actualizarValor(valor);
     }
 
     @Override
     public void actualizarSpriteCelda(int posX, int posY, int estado) {
-        tableroCeldas[posX][posY].actualizarSprite(estado);
+        tableroCeldas[posY][posX].actualizarSprite(estado);
     }
 
     @Override
     public void notificarCambioEnCelda(int posX, int posY, int estado) {
         List<Entry<Entry<Integer, Integer>, ImageIcon>> celdasActualizadas = this.actualizarSpriteSeleccionadasIndirec(posX, posY, estado);
 
-        ImageIcon spriteCelda = (tableroCeldas[posX][posY]).getSpriteIcon();
+        ImageIcon spriteCelda = (tableroCeldas[posY][posX]).getSpriteIcon();
         Entry<Integer, Integer> coordenadasXY = new EntryImpl<Integer, Integer>(posX, posY);
         celdasActualizadas.add( new EntryImpl<Entry<Integer, Integer>, ImageIcon>(coordenadasXY, spriteCelda) );
 
@@ -165,9 +165,9 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
             int posX = coordenadas.getKey();
             int posY = coordenadas.getValue();
 
-            tableroCeldas[posX][posY].actualizarSpriteSeleccionada(estado);
+            tableroCeldas[posY][posX].actualizarSpriteSeleccionada(estado);
 
-            ImageIcon sprite =  tableroCeldas[posX][posY].getSpriteIcon();
+            ImageIcon sprite =  tableroCeldas[posY][posX].getSpriteIcon();
 
             celdasActualizadas.add( new EntryImpl<Entry<Integer, Integer>, ImageIcon>(coordenadas, sprite) );
         }
