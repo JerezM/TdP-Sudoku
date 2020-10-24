@@ -35,4 +35,26 @@ public class EntryImpl<K, V> implements Entry<K, V> {
         return value;
     }
     
+    @Override
+    public boolean equals(Object obj) {
+        boolean iguales;
+
+        if (obj == null || obj.getClass() != this.getClass() {//Si obj es nulo o no es una clase EntryImpl
+            iguales = false;
+        }
+        else {
+            EntryImpl<K, V> entryObj = (EntryImpl<K, V> ) obj;
+    
+            iguales = ( this.key.equals( entryObj.getKey() ) && this.value.equals( entryObj.getValue() ) );
+        }
+
+        return iguales;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = this.key.hashCode() + this.getValue().hashCode();
+        
+        return hash;
+    }
 }
