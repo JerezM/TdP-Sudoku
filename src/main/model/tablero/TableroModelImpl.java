@@ -64,7 +64,7 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
     public void verificarTablero() {
         VerificadorTableroService verificador = new VerificadorTableroServiceImpl();
 
-        Entry<Boolean, List<Entry<Integer, Integer>>> e = verificador.verificarTablero(tableroNumeros, tableroEstadoInicial);
+        Entry<Boolean, List<Entry<Integer, Integer>>> e = verificador.verificarTablero(tableroNumeros);
         boolean cumple = e.getKey();
 
         this.notificarVerificacionTablero(cumple);
