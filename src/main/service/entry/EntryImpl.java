@@ -39,7 +39,7 @@ public class EntryImpl<K, V> implements Entry<K, V> {
     public boolean equals(Object obj) {
         boolean iguales;
 
-        if (obj == null || obj.getClass() != this.getClass() {//Si obj es nulo o no es una clase EntryImpl
+        if ( obj == null || obj.getClass() != this.getClass() ) {//Si obj es nulo o no es una clase EntryImpl
             iguales = false;
         }
         else {
