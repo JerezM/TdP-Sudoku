@@ -2,7 +2,6 @@ package main.model.celda;
 
 import javax.swing.ImageIcon;
 
-import main.service.EstadosPosiblesCeldas;
 import main.model.celda.entidadesGraficas.EntidadGrafica;
 import main.model.tablero.TableroModelCelda;
 import main.model.tablero.TableroModelImpl;
