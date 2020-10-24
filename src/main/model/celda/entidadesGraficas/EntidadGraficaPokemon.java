@@ -13,6 +13,37 @@ public class EntidadGraficaPokemon implements EntidadGrafica {
 	private Map<Integer, String[]> spritesMap;
 	
 	public EntidadGraficaPokemon(int valorCelda) {
+		this.inicializarSpritesMap();
+
+		int estado = EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado();
+		this.imagenes = spritesMap.get(valorCelda);
+		
+		ImageIcon imageIcon = new ImageIcon(this.getClass().getResource(this.imagenes[estado]));
+		this.spriteIcon.setImage(imageIcon.getImage());
+	}
+
+	@Override
+	public void actualizarValor(int valor) {
+		imagenes = spritesMap.get(valor);
+		int estado = EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado();
+		this.actualizarSprite(estado);
+	}
+
+	@Override
+	public void actualizarSprite(int estado) {
+		ImageIcon imageIcon = new ImageIcon(this.getClass().getResource(this.imagenes[estado]));
+		this.spriteIcon.setImage(imageIcon.getImage());
+	}
+
+	@Override
+	public ImageIcon getSpriteIcon() {
+		return this.spriteIcon;
+	}
+
+	/**
+	 * Inicializa el atributo spritesMap.
+	 */
+	protected void inicializarSpritesMap() {
 		spritesMap = new HashMap<Integer, String[]>();
 
 		String[] spritesCelda0 =  new String[]{"resources/sprites/celda-0/celda-0-estado-0.png", "resources/sprites/celda-0/celda-0-estado-1.png", "resources/sprites/celda-0/celda-0-estado-2.png", "resources/sprites/celda-0/celda-0-estado-3.png"};
@@ -36,29 +67,6 @@ public class EntidadGraficaPokemon implements EntidadGrafica {
 		spritesMap.put(7, spritesCelda7);
 		spritesMap.put(8, spritesCelda8);
 		spritesMap.put(9, spritesCelda9);
-
-		int estado = EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado();
-		this.imagenes = spritesMap.get(valorCelda);
-		ImageIcon imageIcon = new ImageIcon(this.getClass().getResource(this.imagenes[estado]));
-		this.spriteIcon.setImage(imageIcon.getImage());
-	}
-
-	@Override
-	public void actualizarValor(int valor) {
-		imagenes = spritesMap.get(valor);
-		int estado = EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado();
-		this.actualizarSprite(estado);
-	}
-
-	@Override
-	public void actualizarSprite(int estado) {
-		ImageIcon imageIcon = new ImageIcon(this.getClass().getResource(this.imagenes[estado]));
-		this.spriteIcon.setImage(imageIcon.getImage());
-	}
-
-	@Override
-	public ImageIcon getSpriteIcon() {
-		return this.spriteIcon;
 	}
 
 }

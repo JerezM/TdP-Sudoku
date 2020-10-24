@@ -53,13 +53,21 @@ public class TableroControllerImpl implements TableroControllerView, TableroCont
 
     @Override
     public void notificarCambios(List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas) {
-        // TODO Auto-generated method stub
+        
+        for (Entry<Entry<Integer, Integer>, ImageIcon> celdaActual : celdas) {
+            Entry<Integer, Integer> coordenadasXY = celdaActual.getKey();
+            int posX = coordenadasXY.getKey();
+            int posY = coordenadasXY.getValue();
+            ImageIcon spriteActual = celdaActual.getValue();
+
+            //Pasarle las cosas juntadas a la view
+        }
 
     }
 
     @Override
     public void notificarVerificacionTablero(boolean resultado) {
-        // TODO Auto-generated method stub
+        //Deriva a la view el resultado
 
     }
 

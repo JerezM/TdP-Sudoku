@@ -14,22 +14,18 @@ public class CeldaModelImpl implements CeldaModel {
 	private int posX, posY;
 	private TableroModelCelda tablero;
 	
-	public CeldaModelImpl(Integer valorInicial, EntidadGrafica entidadGraficaInicial, int posX, int posY) {
+	public CeldaModelImpl(Integer valorInicial, EntidadGrafica entidadGrafica, int posX, int posY) {
 		this.valor = valorInicial;
-		this.entidadGrafica = entidadGraficaInicial;
+		this.entidadGrafica = entidadGrafica;
 		this.posX = posX;
 		this.posY = posY;
 		tablero = TableroModelImpl.getInstance();
-		
 	}
 	
 	@Override
 	public void actualizarValor(int valorNuevo){
 		valor = valorNuevo;
-		int estado = EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado();
-
-		entidadGrafica.actualizarValor(valorNuevo);
-		this.notificarCambioATablero(estado);
+		entidadGrafica.actualizarValor(valor);
 	}
 
 	@Override
@@ -47,7 +43,7 @@ public class CeldaModelImpl implements CeldaModel {
      * Notifica a TableroModel de un cambio en el estado interno de la clase.
      */
 	protected void notificarCambioATablero(int estado) {
-		tablero.notificarCambioEnCelda(posX, posY, estado);
+		tablero.notificarCambioEstadoEnCelda(posX, posY, estado);
 	}
 
 	@Override

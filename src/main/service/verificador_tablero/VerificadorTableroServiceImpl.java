@@ -63,41 +63,42 @@ public class VerificadorTableroServiceImpl implements VerificadorTablero {
         boolean hayErroresCol = erroresCol.getKey();
         boolean hayErroresPanel = erroresPanel.getKey();
 
-        boolean resultado = (hayErroresFila || hayErroresCol || hayErroresPanel);
+        boolean cumple = (hayErroresFila && hayErroresCol && hayErroresPanel);
 
-        return new EntryImpl<Boolean, List<Entry<Integer, Integer>>>(resultado, listCoordenadasErrores);
+        return new EntryImpl<Boolean, List<Entry<Integer, Integer>>>(cumple, listCoordenadasErrores);
 	}
 
 	@Override
 	public Entry<Boolean, List<Entry<Integer, Integer>>> verificarFilas(int[][] matrizActual, int[][] matrizInicial) {
         Entry<Boolean, List<Entry<Integer, Integer>>> erroresFila = null;
-        boolean resultado = true;
+        boolean cumple = true;
         List<Entry<Integer, Integer>> listCoordenadasErrores = null;
 
         Set<Entry<Integer, Integer>> setErrores = new HashSet<Entry<Integer, Integer>>();
 
         for (int posY = 0; posY < matrizActual.length; posY++) {
             for (int posX = 0; posX < matrizActual[0].length; posX++) {
-                int valorCelda = matrizInicial[posY][posX];
 
-                if (valorCelda != 0) {//Si no es una celda del estado inicial
+                if (matrizInicial[posY][posX] != 0) {//Si no es una celda del estado inicial
+                    int valorCelda = matrizActual[posY][posX];
 
                     if (valorCelda == 0) {//La celda esta vacia -> Error
                         setErrores.add( new EntryImpl<Integer, Integer>(posX, posY) );
-                        resultado = false;
+                        cumple = false;
                     }
                     else {
                         Entry<Boolean, List<Entry<Integer, Integer>>> entradaActual = numerosRepetidos.get(valorCelda);
-                        boolean resultadoActual = entradaActual.getKey();
+                        boolean apareceActual = entradaActual.getKey();
                         List<Entry<Integer, Integer>> listActual = entradaActual.getValue();
+
+                        if (apareceActual && listActual.size() == 1) cumple = false;//Se repiten valores en la fila -> Error
+
+                        if (!apareceActual) apareceActual = true;
+
                         Entry<Integer, Integer> coordenadasActuales = new EntryImpl<Integer, Integer>(posX, posY);
+                        listActual.add(coordenadasActuales);//Agrego las coordenadas donde aparece este valor
 
-                        if (resultadoActual && listActual.size() == 1) resultado = true;//Se repiten valores en la fila -> Error
-
-                        if (!resultadoActual) resultadoActual = true;
-                        listActual.add(coordenadasActuales);
-
-                        entradaActual.setKey(resultadoActual);
+                        entradaActual.setKey(apareceActual);
                         entradaActual.setValue(listActual);
 
                         numerosRepetidos.put(valorCelda, entradaActual);
@@ -110,7 +111,7 @@ public class VerificadorTableroServiceImpl implements VerificadorTablero {
         }
 
         listCoordenadasErrores = new LinkedList<Entry<Integer, Integer>>(setErrores);
-        erroresFila = new EntryImpl<Boolean, List<Entry<Integer, Integer>>>(resultado, listCoordenadasErrores);
+        erroresFila = new EntryImpl<Boolean, List<Entry<Integer, Integer>>>(cumple, listCoordenadasErrores);
 
 		return erroresFila;
 	}
@@ -118,33 +119,34 @@ public class VerificadorTableroServiceImpl implements VerificadorTablero {
 	@Override
 	public Entry<Boolean, List<Entry<Integer, Integer>>> verificarColumnas(int[][] matrizActual, int[][] matrizInicial) {
         Entry<Boolean, List<Entry<Integer, Integer>>> erroresCol = null;
-        boolean resultado = true;
+        boolean cumple = true;
         List<Entry<Integer, Integer>> listCoordenadasErrores = null;
 
         Set<Entry<Integer, Integer>> setErrores = new HashSet<Entry<Integer, Integer>>();
 
         for (int posX = 0; posX < matrizActual[0].length; posX++) {
             for (int posY = 0; posY < matrizActual.length; posY++) {
-                int valorCelda = matrizActual[posY][posX];
 
                 if (matrizInicial[posY][posX] != 0) {//Si no es una celda del estado inicial
+                    int valorCelda = matrizActual[posY][posX];
 
                     if (valorCelda == 0) {//La celda esta vacia -> Error
                         setErrores.add( new EntryImpl<Integer, Integer>(posX, posY) );
-                        resultado = false;
+                        cumple = false;
                     }
                     else {
                         Entry<Boolean, List<Entry<Integer, Integer>>> entradaActual = numerosRepetidos.get(valorCelda);
-                        boolean resultadoActual = entradaActual.getKey();
+                        boolean apareceActual = entradaActual.getKey();
                         List<Entry<Integer, Integer>> listActual = entradaActual.getValue();
+
+                        if (apareceActual && listActual.size() == 1) cumple = false;//Se repiten valores en la columna -> Error
+
+                        if (!apareceActual) apareceActual = true;
+
                         Entry<Integer, Integer> coordenadasActuales = new EntryImpl<Integer, Integer>(posX, posY);
+                        listActual.add(coordenadasActuales);//Agrego las coordenadas donde aparece este valor
 
-                        if (resultadoActual && listActual.size() == 1) resultado = true;//Se repiten valores en la columna -> Error
-
-                        if (!resultadoActual) resultadoActual = true;
-                        listActual.add(coordenadasActuales);
-
-                        entradaActual.setKey(resultadoActual);
+                        entradaActual.setKey(apareceActual);
                         entradaActual.setValue(listActual);
 
                         numerosRepetidos.put(valorCelda, entradaActual);
@@ -157,7 +159,7 @@ public class VerificadorTableroServiceImpl implements VerificadorTablero {
         }
 
         listCoordenadasErrores = new LinkedList<Entry<Integer, Integer>>(setErrores);
-        erroresCol = new EntryImpl<Boolean, List<Entry<Integer, Integer>>>(resultado, listCoordenadasErrores);
+        erroresCol = new EntryImpl<Boolean, List<Entry<Integer, Integer>>>(cumple, listCoordenadasErrores);
 
 		return erroresCol;
 	}
@@ -165,7 +167,7 @@ public class VerificadorTableroServiceImpl implements VerificadorTablero {
 	@Override
 	public Entry<Boolean, List<Entry<Integer, Integer>>> verificarPaneles(int[][] matrizActual, int[][] matrizInicial) {
 		Entry<Boolean, List<Entry<Integer, Integer>>> erroresPaneles = null;
-        boolean resultado = true;
+        boolean cumple = true;
         List<Entry<Integer, Integer>> listCoordenadasErrores = null;
 
         Set<Entry<Integer, Integer>> setErrores = new HashSet<Entry<Integer, Integer>>();
@@ -184,26 +186,27 @@ public class VerificadorTableroServiceImpl implements VerificadorTablero {
 
                 for (int i = inicioEnY; i <= finEnY; i++) {
                     for (int j = inicioEnX; j <= finEnX; j++) {
-                        int valorCelda = matrizActual[i][j];
 
                         if (matrizInicial[i][j] != 0) {//Si no es una celda del estado inicial
+                            int valorCelda = matrizActual[i][j];
 
                             if (valorCelda == 0) {//La celda esta vacia -> Error
                                 setErrores.add( new EntryImpl<Integer, Integer>(j, i) );
-                                resultado = false;
+                                cumple = false;
                             }       
                             else {
                                 Entry<Boolean, List<Entry<Integer, Integer>>> entradaActual = numerosRepetidos.get(valorCelda);
-                                boolean resultadoActual = entradaActual.getKey();
+                                boolean apareceActual = entradaActual.getKey();
                                 List<Entry<Integer, Integer>> listActual = entradaActual.getValue();
+
+                                if (apareceActual && listActual.size() == 1) cumple = false;//Se repiten valores en la columna -> Error
+
+                                if (!apareceActual) apareceActual = true;
+
                                 Entry<Integer, Integer> coordenadasActuales = new EntryImpl<Integer, Integer>(j, i);
+                                listActual.add(coordenadasActuales);//Agrego las coordenadas donde aparece este valor
 
-                                if (resultadoActual && listActual.size() == 1) resultado = true;//Se repiten valores en la columna -> Error
-
-                                if (!resultadoActual) resultadoActual = true;
-                                listActual.add(coordenadasActuales);
-
-                                entradaActual.setKey(resultadoActual);
+                                entradaActual.setKey(apareceActual);
                                 entradaActual.setValue(listActual);
 
                                 numerosRepetidos.put(valorCelda, entradaActual);
@@ -220,7 +223,7 @@ public class VerificadorTableroServiceImpl implements VerificadorTablero {
         }//Fin recorrido de todos los paneles
 
         listCoordenadasErrores = new LinkedList<Entry<Integer, Integer>>(setErrores);
-        erroresPaneles = new EntryImpl<Boolean, List<Entry<Integer, Integer>>>(resultado, listCoordenadasErrores);
+        erroresPaneles = new EntryImpl<Boolean, List<Entry<Integer, Integer>>>(cumple, listCoordenadasErrores);
 
         return erroresPaneles;
 	}

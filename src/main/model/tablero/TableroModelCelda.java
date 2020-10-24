@@ -8,6 +8,6 @@ public interface TableroModelCelda {
      * @param posY posicion en el eje X de la celda en cuestion.
      * @param estado indica el estado nuevo que tomo la celda en la posicion indicada.
      */
-    public void notificarCambioEnCelda(int posX, int posY, int estado);
+    public void notificarCambioEstadoEnCelda(int posX, int posY, int estado);
 
 }
