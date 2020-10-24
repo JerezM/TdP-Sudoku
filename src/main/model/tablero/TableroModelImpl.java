@@ -23,7 +23,7 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
 
     private CeldaModel[][] tableroCeldas;
     private int[][] tableroNumeros;
-    private int[][] tableroEstadoInicial;
+    private int[][] tableroEstadoInicial;//Se utiliza para reiniciar el tablero
 
     private Map<Integer, Entry<Integer, Integer>> paneles;
 
@@ -49,15 +49,30 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
 
         tableroCeldas = new CeldaModel[rows][columns];
 
+        List<Entry<Boolean, Entry<Entry<Integer, Integer>, ImageIcon>>> celdas = new LinkedList<Entry<Boolean, Entry<Entry<Integer, Integer>, ImageIcon>>>();
+
         for(int fila = 0; fila < rows; fila++) {
             for(int col = 0; col < columns; col++) {
                 int valorActual = tableroNumeros[fila][col];
 
                 tableroCeldas[fila][col] = celdaFactory.createCeldaModel(col, fila, valorActual);
+
+                Entry<Boolean, Entry<Entry<Integer, Integer>, ImageIcon>> celdaActual;
+                boolean esInicial = ( tableroNumeros[fila][col] != 0);
+
+                Entry<Entry<Integer, Integer>, ImageIcon> datosCeldaActual;
+                Entry<Integer, Integer> coordenadasXYActual = new EntryImpl<Integer, Integer>(col, fila);
+                ImageIcon spriteActual = tableroCeldas[fila][col].getSpriteIcon();
+                datosCeldaActual = new EntryImpl<Entry<Integer,Integer>,ImageIcon>(coordenadasXYActual, spriteActual);
+
+                celdaActual = new EntryImpl<Boolean,Entry<Entry<Integer,Integer>,ImageIcon>>(esInicial, datosCeldaActual);
+
+
+                celdas.add(celdaActual);
             }
         }
 
-        
+        this.notificarInicioTablero(celdas);
     }
 
     @Override
@@ -224,6 +239,15 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
      */
     protected void notificarVerificacionTablero(boolean resultado) {
         controller.notificarVerificacionTablero(resultado);
+    }
+
+    /**
+     * Notifica al TableroController de la inicializacion exitosa del tablero.
+     * @param celdas Colleccion de coordenadas de celdas en las cuales se notificaron cambios, con sus respectivos sprites.
+     *  Vease: List< esInicial,< < posX, posY>, sprite > >.
+     */
+    public void notificarInicioTablero(List<Entry<Boolean, Entry<Entry<Integer, Integer>, ImageIcon>>> celdas) {
+        controller.notificarInicioTablero(celdas);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package main.controller.tablero;
 
+import java.io.File;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -29,8 +30,8 @@ public class TableroControllerImpl implements TableroControllerView, TableroCont
     }
 
     @Override
-    public void cargarTableroDesdeArchivo() throws SudokuFileException {
-        int[][] tableroNumerico = this.fileToMatrix();
+    public void cargarTableroDesdeArchivo(File file) throws SudokuFileException {
+        int[][] tableroNumerico = this.fileToMatrix(file);
         tableroNumerico = this.sudokuGenerator(tableroNumerico);
 
         tableroModel.cargarTablero(tableroNumerico);
@@ -49,6 +50,12 @@ public class TableroControllerImpl implements TableroControllerView, TableroCont
     @Override
     public void verificarTablero() {
         tableroModel.verificarTablero();
+    }
+
+    @Override
+    public void notificarInicioTablero(List<Entry<Boolean, Entry<Entry<Integer, Integer>, ImageIcon>>> celdas) {
+        //tableroView.inicializarTablero(celdas);
+
     }
 
     @Override
@@ -79,7 +86,7 @@ public class TableroControllerImpl implements TableroControllerView, TableroCont
      * @throws SudokuFileException Se lanza si el archivo no cumple la sintaxis o el
      *                             tablero interno es incorrecto.
      */
-    protected int[][] fileToMatrix() throws SudokuFileException {
+    protected int[][] fileToMatrix(File file) throws SudokuFileException {
 
         return null;
     }
