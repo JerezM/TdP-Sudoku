@@ -191,7 +191,7 @@ public class VerificadorTableroServiceImpl implements VerificadorTablero {
                             int valorCelda = matrizActual[i][j];
 
                             if (valorCelda == 0) {//La celda esta vacia -> Error
-                                setErrores.add( new EntryImpl<Integer, Integer>(j, i) );
+                                setErrores.add( new EntryImpl<Integer, Integer>(j, i) );//Agrego las coordenadas de la celda vacia
                                 cumple = false;
                             }       
                             else {
