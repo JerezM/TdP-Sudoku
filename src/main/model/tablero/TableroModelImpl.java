@@ -25,8 +25,6 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
     private int[][] tableroEstadoInicial;
 
     private Map<Integer, Entry<Integer, Integer>> paneles;
-    private List<Entry<Integer, Integer>> ultimasCeldasErroneas;
-    
 
     private TableroModelImpl() {}
 
@@ -57,7 +55,6 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
             }
         }
 
-        ultimasCeldasErroneas = new LinkedList<Entry<Integer, Integer>>();
     }
 
     @Override
@@ -70,10 +67,11 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
         this.notificarVerificacionTablero(esCorrecto);
 
         if(!esCorrecto){//En caso de ser incorrecto se encarga de marcar las celdas con errores y notificar de las mismas al controller.
-            ultimasCeldasErroneas = e.getValue();
+            List<Entry<Integer, Integer>> listErrores = e.getValue();
             int estadoError = EstadosPosiblesCeldas.CELDA_EN_ERROR.getEstado();
 
-            List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas = this.actualizarSpriteSeleccionadas(ultimasCeldasErroneas, estadoError);
+            this.limpiarTablero();
+            List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas = this.actualizarSpriteSeleccionadas(listErrores, estadoError);
             this.notificarCambios(celdas);
         }
         
@@ -81,12 +79,16 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
 
     @Override
     public void actualizarValorCelda(int posX, int posY, int valor) {
+        this.limpiarTablero();
+
         tableroNumeros[posY][posX] = valor;
         tableroCeldas[posY][posX].actualizarValor(valor);
     }
 
     @Override
     public void actualizarSpriteCelda(int posX, int posY, int estado) {
+        this.limpiarTablero();
+
         tableroCeldas[posY][posX].actualizarSprite(estado);
     }
 
@@ -143,12 +145,6 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
                 celdas.add(celdaActualCoordenadas);
             }
         }
-
-        if(!ultimasCeldasErroneas.isEmpty()) {
-            int estadoNoSeleccionada = EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado();
-            this.actualizarSpriteSeleccionadas(ultimasCeldasErroneas, estadoNoSeleccionada);
-            ultimasCeldasErroneas.clear();
-        }
         
         return this.actualizarSpriteSeleccionadas(celdas, estado);
     }
@@ -173,6 +169,19 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
         }
 
         return celdasActualizadas;
+    }
+
+    /**
+     * Limpia el tablero de cualquier estado posible que tengan las celdas y las establece a todas como no seleccionadas.
+     */
+    protected void limpiarTablero() {
+        int estado = EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado();
+
+        for (int i = 0; i < tableroCeldas.length; i++) {
+            for (int j = 0; j < tableroCeldas[0].length; j++) {
+                tableroCeldas[i][j].actualizarSpriteSeleccionada(estado);
+            }
+        }
     }
 
     /**

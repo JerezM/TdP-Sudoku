@@ -16,13 +16,15 @@ public interface CeldaModel {
 
     /**
      * Actualiza el estado actual de la celda por el valor parametrizado, lo cual se ve reflejado en el sprite.
+     * El mismo se utiliza cuando la accion viene directamente de la view.
      * @param estadoNuevo Nuevo estado que va a tener la celda.
      */
     public void actualizarSprite(int estadoNuevo);
 
     /**
-     * Actualiza el estado actual de la celda para demostrar que fue seleccionada indirectamente,
+     * Actualiza el estado actual de la celda y establece el parametrizado,
      * el cual se ve reflejado en el sprite.
+     * El mismo se utiliza para marcacion de errores, cambiar a estado vacio o un seleccionado indirecto.
      */
     public void actualizarSpriteSeleccionada(int estado); 
 
