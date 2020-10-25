@@ -21,7 +21,7 @@ public interface TableroControllerView {
     public void actualizarValor(int valor, int posX, int posY);
 
     /**
-     * Actualiza el valor de la celda ubicada en la posicion parametrizada por el valor parametrizado.
+     * Actualiza el estado de la celda ubicada en la posicion parametrizada por el valor parametrizado.
      * @param posX posicion en el eje X de la celda en cuestion.
      * @param posY posicion en el eje X de la celda en cuestion.
      * @param estado nuevo estado que indica el sprite que va a tomar la celda.

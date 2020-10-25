@@ -15,15 +15,17 @@ import main.service.transformador_archivo.FileToMatrixService;
 import main.service.transformador_archivo.FileToMatrixServiceImpl;
 import main.service.verificador_tablero.VerificadorTableroService;
 import main.service.verificador_tablero.VerificadorTableroServiceImpl;
+import main.view.tablero.TableroViewController;
+import main.view.tablero.TableroViewImpl;
 
 public class TableroControllerImpl implements TableroControllerView, TableroControllerModel, TableroController {
     private static TableroControllerImpl instance;
     private TableroModelController tableroModel;
-    // private TableroView tableroView;
+    private TableroViewController tableroView;
 
     private TableroControllerImpl() {
         tableroModel = TableroModelImpl.getInstance();
-        // tableroView = TableroViewImpl.getInstance();
+        tableroView = TableroViewImpl.getInstance();
     }
 
     public static TableroControllerImpl getInstance() {
@@ -67,26 +69,17 @@ public class TableroControllerImpl implements TableroControllerView, TableroCont
 
     @Override
     public void notificarInicioTablero(List<Entry<Boolean, Entry<Entry<Integer, Integer>, ImageIcon>>> celdas) {
-        //tableroView.inicializarTablero(celdas);
+        tableroView.inicializarTablero(celdas);
     }
 
     @Override
     public void notificarCambios(List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas) {
-        //tableroView.notificarCambios(celdas);
-
-      /*for (Entry<Entry<Integer, Integer>, ImageIcon> celdaActual : celdas) {
-            Entry<Integer, Integer> coordenadasXY = celdaActual.getKey();
-            int posX = coordenadasXY.getKey();
-            int posY = coordenadasXY.getValue();
-            ImageIcon spriteActual = celdaActual.getValue();
-        }*/
-
+        tableroView.notificarCambios(celdas);
     }
 
     @Override
-    public void notificarVerificacionTablero(boolean resultado, List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas) {
-        //Deriva a la view el resultado
-
+    public void notificarVerificacionTablero(boolean resultado, List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas) {   
+        tableroView.notificarVerificacionTablero(resultado, celdas);
     }
 
     /**
