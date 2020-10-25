@@ -30,7 +30,7 @@ public class NuevoJuevoBtn extends JButton {
     /**
      * Abre el fileChooser para que eligas el archivo del tablero y despues le pasa el mismo al controller.
      */
-    protected void abrirFileChooser() {
+    public void abrirFileChooser() {
         JFileChooser fileChooser = new JFileChooser(".");
         int returnVal = fileChooser.showOpenDialog( gui );
     

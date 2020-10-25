@@ -17,22 +17,28 @@ public class CeldaViewImpl extends JLabel implements CeldaView {
     private boolean estaSeleccionada;
 
     public CeldaViewImpl(boolean esInicial, int posX, int posY, ImageIcon sprite) {
+        this.sprite = sprite;
+        this.setIcon(this.sprite);
         if(!esInicial) {
             this.addMouseListener(new CeldaViewListener());
         }
 
-        this.sprite = sprite;
+        
         this.posX = posX;
         this.posY = posY;
         tablero = TableroViewImpl.getInstance();
         estaSeleccionada = false;
 
+        this.setSize(33, 33);
+        
         this.pintarSprite();
+        this.setVisible(true);
     }
 
     @Override
     public void notificarCambio(ImageIcon sprite) {
         this.sprite = sprite;
+        this.setIcon(this.sprite);
         this.pintarSprite();
     }
 

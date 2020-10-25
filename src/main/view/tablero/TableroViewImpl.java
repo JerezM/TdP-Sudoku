@@ -6,6 +6,7 @@ import java.awt.event.WindowEvent;
 import java.awt.GridLayout;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -26,8 +27,10 @@ public class TableroViewImpl extends JPanel implements TableroViewCelda, Tablero
     private TableroViewImpl() {
         tableroCeldas = new CeldaViewTablero[9][9];
 
-        this.setBounds(74, 56,405, 324);
-        this.setLayout( new GridLayout(tableroCeldas.length, tableroCeldas[0].length) );
+        this.setBounds(0, 0, 297, 297);
+        this.setLayout( new GridLayout(tableroCeldas.length, tableroCeldas[0].length, 0, 0) );
+        
+        this.setVisible(true);
     }
 
     public static TableroViewImpl getInstance() {
@@ -51,8 +54,12 @@ public class TableroViewImpl extends JPanel implements TableroViewCelda, Tablero
             ImageIcon sprite = datosCelda.getValue();
 
             tableroCeldas[posY][posX] = new CeldaViewImpl(esInicial, posX, posY, sprite);
+            this.add((JLabel) tableroCeldas[posY][posX]);
         }
 
+        this.setVisible(true);
+        GUI.getInstance().getContentPane().add(this);
+        GUI.getInstance().getContentPane().setVisible(true);
     }
 
     @Override

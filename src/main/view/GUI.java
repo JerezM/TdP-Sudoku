@@ -1,6 +1,6 @@
 package main.view;
 
-import java.awt.BorderLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,22 +20,20 @@ public class GUI extends JFrame {
      */
     private GUI() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 1051, 444);
+        setBounds(100, 100, 1024, 444);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        contentPane.setLayout(new BorderLayout(1, 1));
+        contentPane.setLayout(new GridLayout(1, 2));
         setContentPane(contentPane);
-        this.setResizable(false);
+        //this.setResizable(false);
         this.setTitle("Sudoku");
 
         JButton nuevoJuegoBtn = new NuevoJuevoBtn();
         JPanel tablero = TableroViewImpl.getInstance();
 
 
-
         contentPane.add(nuevoJuegoBtn);
         contentPane.add(tablero);
-
 
 
 	}

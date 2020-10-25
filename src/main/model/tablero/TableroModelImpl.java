@@ -124,7 +124,7 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
         if ( estado == EstadosPosiblesCeldas.CELDA_SELECCIONADA.getEstado() ) {
             tableroCeldas[posY][posX].actualizarSprite(estado);
         }
-        else {//Si la celda en cuestion fue deseleccionada entonces simplemente notifico la limpieza del tablero
+        else if ( estado == EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado() ) {//Si la celda en cuestion fue deseleccionada entonces simplemente notifico la limpieza del tablero
             notificarCambios(celdas);
         }
 
@@ -132,8 +132,9 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
 
     @Override
     public void notificarCambioEstadoEnCelda(int posX, int posY, int estado) {
-        List<Entry<Entry<Integer, Integer>, ImageIcon>> celdasActualizadas = this.actualizarSpriteSeleccionadasIndirec(posX, posY, estado);
-
+        int selectIndirect = EstadosPosiblesCeldas.CELDA_SELECCIONADA_INDIRECTAMENTE.getEstado();
+        List<Entry<Entry<Integer, Integer>, ImageIcon>> celdasActualizadas = this.actualizarSpriteSeleccionadasIndirec(posX, posY, selectIndirect);
+        
         ImageIcon spriteCelda = (tableroCeldas[posY][posX]).getSpriteIcon();
         Entry<Integer, Integer> coordenadasXY = new EntryImpl<Integer, Integer>(posX, posY);
         celdasActualizadas.add( new EntryImpl<Entry<Integer, Integer>, ImageIcon>(coordenadasXY, spriteCelda) );

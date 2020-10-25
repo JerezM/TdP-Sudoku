@@ -14,12 +14,10 @@ public class EntidadGraficaPokemon implements EntidadGrafica {
 	
 	public EntidadGraficaPokemon(int valorCelda) {
 		this.inicializarSpritesMap();
-
-		int estado = EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado();
 		this.imagenes = spritesMap.get(valorCelda);
 		
-		ImageIcon imageIcon = new ImageIcon(this.getClass().getResource(this.imagenes[estado]));
-		this.spriteIcon.setImage(imageIcon.getImage());
+		int estado = EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado();
+		this.actualizarSprite(estado);
 	}
 
 	@Override
@@ -32,7 +30,8 @@ public class EntidadGraficaPokemon implements EntidadGrafica {
 	@Override
 	public void actualizarSprite(int estado) {
 		ImageIcon imageIcon = new ImageIcon(this.getClass().getResource(this.imagenes[estado]));
-		this.spriteIcon.setImage(imageIcon.getImage());
+		this.spriteIcon = imageIcon;
+		this.spriteIcon.setImage( this.spriteIcon.getImage());
 	}
 
 	@Override
