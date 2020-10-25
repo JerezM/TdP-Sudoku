@@ -23,7 +23,7 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
 
     private CeldaModel[][] tableroCeldas;
     private int[][] tableroNumeros;
-    private int[][] tableroEstadoInicial;//Se utiliza para reiniciar el tablero
+    private int[][] tableroEstadoInicial;//Se utilizara para reiniciar el tablero
 
     private Map<Integer, Entry<Integer, Integer>> paneles;
 
@@ -82,17 +82,23 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
         Entry<Boolean, List<Entry<Integer, Integer>>> e = verificador.verificarTablero(tableroNumeros);
         boolean cumple = e.getKey();
 
-        this.notificarVerificacionTablero(cumple);
+        List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas;
 
-        if(!cumple){//En caso de ser incorrecto se encarga de marcar las celdas con errores y notificar de las mismas al controller.
+        if(!cumple){//En caso de ser incorrecto se encarga de marcar las celdas con errores.
             List<Entry<Integer, Integer>> listErrores = e.getValue();
             int estadoError = EstadosPosiblesCeldas.CELDA_EN_ERROR.getEstado();
 
-            this.limpiarTablero();
-            List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas = this.actualizarSpriteSeleccionadas(listErrores, estadoError);
-            this.notificarCambios(celdas);
+            int noSelect = EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado();
+            this.pintarTablero(noSelect);
+            
+            celdas = this.actualizarSpriteSeleccionadas(listErrores, estadoError);
+        }
+        else {//En caso de haber ganado el juego pinta todas las celdas como seleccionadas.
+            int select = EstadosPosiblesCeldas.CELDA_SELECCIONADA.getEstado();
+            celdas = this.pintarTablero(select);
         }
         
+        this.notificarVerificacionTablero(cumple, celdas);
     }
 
     @Override
@@ -100,14 +106,16 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
         tableroNumeros[posY][posX] = valor;
         tableroCeldas[posY][posX].actualizarValor(valor);
 
-        List<Entry<Entry<Integer, Integer>, ImageIcon>> celdasActualizadas = this.limpiarTablero();
+        int noSelect = EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado();
+        List<Entry<Entry<Integer, Integer>, ImageIcon>> celdasActualizadas = this.pintarTablero(noSelect);
 
         this.notificarCambios(celdasActualizadas);
     }
 
     @Override
     public void actualizarSpriteCelda(int posX, int posY, int estado) {
-        List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas = this.limpiarTablero();
+        int noSelect = EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado();
+        List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas = this.pintarTablero(noSelect);
 
         if ( estado == EstadosPosiblesCeldas.CELDA_SELECCIONADA.getEstado() ) {
             tableroCeldas[posY][posX].actualizarSprite(estado);
@@ -200,13 +208,13 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
     }
 
     /**
-     * Limpia el tablero de cualquier estado posible que tengan las celdas y las establece a todas como no seleccionadas.
+     * Pinta el tablero de cualquier estado posible que tengan las celdas y las establece a todas con el estado parametrizado.
+     * @param estado Estado a establecer en todas las celdas.
      * @return Una lista de entradas las cuales contienen las coordenadas de las celdas seleccionadas,
      * junto con su respectivo sprite.
      */
-    protected List<Entry<Entry<Integer, Integer>, ImageIcon>> limpiarTablero() {
+    protected List<Entry<Entry<Integer, Integer>, ImageIcon>> pintarTablero(int estado) {
         List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas = new LinkedList<Entry<Entry<Integer, Integer>, ImageIcon>>();
-        int estado = EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado();
 
         for (int posY = 0; posY < tableroCeldas.length; posY++) {
             for (int posX = 0; posX < tableroCeldas[0].length; posX++) {
@@ -237,8 +245,8 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
      * Le notifica al tableroController de si el tablero actual se encuentra en un estado ganador, o si contiene errores.
      * @param resultado True en caso de ser un tablero completo y correcto, Falso en caso de contener errores.
      */
-    protected void notificarVerificacionTablero(boolean resultado) {
-        controller.notificarVerificacionTablero(resultado);
+    protected void notificarVerificacionTablero(boolean resultado, List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas) {
+        controller.notificarVerificacionTablero(resultado, celdas);
     }
 
     /**

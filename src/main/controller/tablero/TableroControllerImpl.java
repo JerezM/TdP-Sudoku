@@ -68,25 +68,23 @@ public class TableroControllerImpl implements TableroControllerView, TableroCont
     @Override
     public void notificarInicioTablero(List<Entry<Boolean, Entry<Entry<Integer, Integer>, ImageIcon>>> celdas) {
         //tableroView.inicializarTablero(celdas);
-
     }
 
     @Override
     public void notificarCambios(List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas) {
-        
-        for (Entry<Entry<Integer, Integer>, ImageIcon> celdaActual : celdas) {
+        //tableroView.notificarCambios(celdas);
+
+      /*for (Entry<Entry<Integer, Integer>, ImageIcon> celdaActual : celdas) {
             Entry<Integer, Integer> coordenadasXY = celdaActual.getKey();
             int posX = coordenadasXY.getKey();
             int posY = coordenadasXY.getValue();
             ImageIcon spriteActual = celdaActual.getValue();
-
-            //Pasarle las cosas juntadas a la view
-        }
+        }*/
 
     }
 
     @Override
-    public void notificarVerificacionTablero(boolean resultado) {
+    public void notificarVerificacionTablero(boolean resultado, List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas) {
         //Deriva a la view el resultado
 
     }
