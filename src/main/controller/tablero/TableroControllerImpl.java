@@ -8,8 +8,11 @@ import javax.swing.ImageIcon;
 import main.exception.SudokuFileException;
 import main.model.tablero.TableroModelController;
 import main.model.tablero.TableroModelImpl;
-
 import main.service.entry.Entry;
+import main.service.transformador_archivo.FileToMatrixService;
+import main.service.transformador_archivo.FileToMatrixServiceImpl;
+import main.service.verificador_tablero.VerificadorTableroService;
+import main.service.verificador_tablero.VerificadorTableroServiceImpl;
 
 public class TableroControllerImpl implements TableroControllerView, TableroControllerModel, TableroController {
     private static TableroControllerImpl instance;
@@ -32,6 +35,14 @@ public class TableroControllerImpl implements TableroControllerView, TableroCont
     @Override
     public void cargarTableroDesdeArchivo(File file) throws SudokuFileException {
         int[][] tableroNumerico = this.fileToMatrix(file);
+
+        VerificadorTableroService verificador = new VerificadorTableroServiceImpl();
+        Entry<Boolean, List<Entry<Integer, Integer>>> resultado = verificador.verificarTablero(tableroNumerico);
+
+        if( !resultado.getKey() ) {//Si el tablero representado no esta completo o es erroneo.
+            throw new SudokuFileException("El tablero seleccionado esta incompleto o es contiene numeros repetidos.");
+        }
+
         tableroNumerico = this.sudokuGenerator(tableroNumerico);
 
         tableroModel.cargarTablero(tableroNumerico);
@@ -87,8 +98,10 @@ public class TableroControllerImpl implements TableroControllerView, TableroCont
      *                             tablero interno es incorrecto.
      */
     protected int[][] fileToMatrix(File file) throws SudokuFileException {
+        FileToMatrixService transformador = new FileToMatrixServiceImpl();
+        int[][] matrizGenerada = transformador.transform(file);
 
-        return null;
+        return matrizGenerada;
     }
 
     /**

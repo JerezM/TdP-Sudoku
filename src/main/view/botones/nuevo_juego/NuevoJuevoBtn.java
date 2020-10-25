@@ -47,8 +47,7 @@ public class NuevoJuevoBtn extends JButton {
                 }
                 catch (SudokuFileException e) {
                     System.out.println(e.getStackTrace());
-                    this.mostrarCartel("El contenido del archivo seleccionado no cumple con el formato establecido.");
-
+                    this.mostrarCartel(e.getMessage());
                 }
             }
             else {
