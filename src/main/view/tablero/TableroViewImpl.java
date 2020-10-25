@@ -3,6 +3,7 @@ package main.view.tablero;
 import java.util.List;
 
 import java.awt.event.WindowEvent;
+import java.awt.GridLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -24,10 +25,11 @@ public class TableroViewImpl extends JPanel implements TableroViewCelda, Tablero
     private CeldaViewTablero[][] tableroCeldas;
 
     private TableroViewImpl() {
-
         controller = TableroControllerImpl.getInstance();
 
         tableroCeldas = new CeldaViewTablero[9][9];
+
+        this.setLayout( new GridLayout(tableroCeldas.length, 0, 0, 0) );
     }
 
     public static TableroViewImpl getInstance() {
