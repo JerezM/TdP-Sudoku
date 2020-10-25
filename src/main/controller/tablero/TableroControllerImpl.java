@@ -9,6 +9,8 @@ import main.exception.SudokuFileException;
 import main.model.tablero.TableroModelController;
 import main.model.tablero.TableroModelImpl;
 import main.service.entry.Entry;
+import main.service.generador_sudoku.SudokuGeneratorService;
+import main.service.generador_sudoku.SudokuGeneratorServiceImpl;
 import main.service.transformador_archivo.FileToMatrixService;
 import main.service.transformador_archivo.FileToMatrixServiceImpl;
 import main.service.verificador_tablero.VerificadorTableroService;
@@ -35,7 +37,7 @@ public class TableroControllerImpl implements TableroControllerView, TableroCont
     @Override
     public void cargarTableroDesdeArchivo(File file) throws SudokuFileException {
         int[][] tableroNumerico = this.fileToMatrix(file);
-
+        
         VerificadorTableroService verificador = new VerificadorTableroServiceImpl();
         Entry<Boolean, List<Entry<Integer, Integer>>> resultado = verificador.verificarTablero(tableroNumerico);
 
@@ -43,7 +45,7 @@ public class TableroControllerImpl implements TableroControllerView, TableroCont
             throw new SudokuFileException("El tablero seleccionado esta incompleto o es contiene numeros repetidos.");
         }
 
-        tableroNumerico = this.sudokuGenerator(tableroNumerico);
+        tableroNumerico = this.generateSudoku(tableroNumerico);
 
         tableroModel.cargarTablero(tableroNumerico);
     }
@@ -111,9 +113,11 @@ public class TableroControllerImpl implements TableroControllerView, TableroCont
      * @param tableroCompleto Matriz a procesar.
      * @return Una matriz que representa un tablero incompleto.
      */
-    protected int[][] sudokuGenerator(int[][] tableroCompleto) {
+    protected int[][] generateSudoku(int[][] tableroCompleto) {
+        SudokuGeneratorService generator = new SudokuGeneratorServiceImpl();
+        int[][] tableroJugable = generator.generateSudoku(tableroCompleto);
 
-        return null;
+        return tableroJugable;
     }
 
 }

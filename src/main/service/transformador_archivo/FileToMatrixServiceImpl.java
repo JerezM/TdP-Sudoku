@@ -37,7 +37,7 @@ public class FileToMatrixServiceImpl implements FileToMatrixService {
                 }
             }
 
-            if (!cumpleFormato) {
+            if (!cumpleFormato || (cumpleFormato && scn.hasNextLine() )) {
                 throw new SudokuFileException("El archivo seleccionado no cumple con el formato indicado.");
             }
 

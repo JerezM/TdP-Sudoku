@@ -11,7 +11,7 @@ public interface TableroControllerModel {
     /**
      * Notifica al TableroView de que se inicializo correctamente el tablero y muestra al mismo visualmente.
      * @param celdas Colleccion de coordenadas de celdas en las cuales se notificaron cambios, con sus respectivos sprites.
-     *  Vease: List< esInicial,< < posX, posY>, sprite > >.
+     *  Vease: Vease: List< esInicial,< < posX, posY>, sprite > >.
      */
     public void notificarInicioTablero(List<Entry<Boolean, Entry<Entry<Integer, Integer>, ImageIcon>>> celdas);
 
