@@ -3,3 +3,6 @@ lib/
 
 #Ignore the .plantuml file
 *.plantuml
+
+#Ignore the resources/tableros folder
+tableros/
