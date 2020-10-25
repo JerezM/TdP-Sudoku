@@ -19,6 +19,8 @@ public class Sudoku {
 					TableroModel tableroModel = TableroModelImpl.getInstance();
 					tableroModel.setCeldaFactory(factory);
 					
+					
+					
 					GUI frame = GUI.getInstance();
 					frame.setVisible(true);
 

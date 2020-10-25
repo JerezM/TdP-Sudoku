@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import main.controller.tablero.TableroControllerView;
 import main.service.entry.Entry;
 
 public interface TableroViewController {
@@ -30,4 +31,10 @@ public interface TableroViewController {
      *  Vease: List<< posX, posY>, sprite>.
      */
     public void notificarVerificacionTablero(boolean resultado, List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas);
+    
+    /**
+     * Establece el controller con el que se comunicara la view.
+     * @param controller El controller que utilizara la view.
+     */
+    public void setController(TableroControllerView controller);
 }

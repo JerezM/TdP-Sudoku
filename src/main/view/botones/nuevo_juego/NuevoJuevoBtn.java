@@ -20,6 +20,7 @@ public class NuevoJuevoBtn extends JButton {
     
     public NuevoJuevoBtn() {
         this.setText("Nuevo Juego");
+        this.setBounds(489, 91, 158, 23);
 
         this.addActionListener(new NuevoJuegoListener());
 

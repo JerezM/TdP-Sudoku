@@ -46,16 +46,16 @@ public class EntidadGraficaPokemon implements EntidadGrafica {
 	protected void inicializarSpritesMap() {
 		spritesMap = new HashMap<Integer, String[]>();
 
-		String[] spritesCelda0 =  new String[]{"resources/sprites/celda-0/celda-0-estado-0.png", "resources/sprites/celda-0/celda-0-estado-1.png", "resources/sprites/celda-0/celda-0-estado-2.png", "resources/sprites/celda-0/celda-0-estado-3.png"};
-		String[] spritesCelda1 =  new String[]{"resources/sprites/celda-1/celda-1-estado-0.png", "resources/sprites/celda-1/celda-1-estado-1.png", "resources/sprites/celda-1/celda-1-estado-2.png", "resources/sprites/celda-1/celda-1-estado-3.png"};
-		String[] spritesCelda2 =  new String[]{"resources/sprites/celda-2/celda-2-estado-0.png", "resources/sprites/celda-2/celda-2-estado-1.png", "resources/sprites/celda-2/celda-2-estado-2.png", "resources/sprites/celda-2/celda-2-estado-3.png"};
-		String[] spritesCelda3 =  new String[]{"resources/sprites/celda-3/celda-3-estado-0.png", "resources/sprites/celda-3/celda-3-estado-1.png", "resources/sprites/celda-3/celda-3-estado-2.png", "resources/sprites/celda-3/celda-3-estado-3.png"};
-		String[] spritesCelda4 =  new String[]{"resources/sprites/celda-4/celda-4-estado-0.png", "resources/sprites/celda-4/celda-4-estado-1.png", "resources/sprites/celda-4/celda-4-estado-2.png", "resources/sprites/celda-4/celda-4-estado-3.png"};
-		String[] spritesCelda5 =  new String[]{"resources/sprites/celda-5/celda-5-estado-0.png", "resources/sprites/celda-5/celda-5-estado-1.png", "resources/sprites/celda-5/celda-5-estado-2.png", "resources/sprites/celda-5/celda-5-estado-3.png"};
-		String[] spritesCelda6 =  new String[]{"resources/sprites/celda-6/celda-6-estado-0.png", "resources/sprites/celda-6/celda-6-estado-1.png", "resources/sprites/celda-6/celda-6-estado-2.png", "resources/sprites/celda-6/celda-6-estado-3.png"};
-		String[] spritesCelda7 =  new String[]{"resources/sprites/celda-7/celda-7-estado-0.png", "resources/sprites/celda-7/celda-7-estado-1.png", "resources/sprites/celda-7/celda-7-estado-2.png", "resources/sprites/celda-7/celda-7-estado-3.png"};
-		String[] spritesCelda8 =  new String[]{"resources/sprites/celda-8/celda-8-estado-0.png", "resources/sprites/celda-8/celda-8-estado-1.png", "resources/sprites/celda-8/celda-8-estado-2.png", "resources/sprites/celda-8/celda-8-estado-3.png"};
-		String[] spritesCelda9 =  new String[]{"resources/sprites/celda-9/celda-9-estado-0.png", "resources/sprites/celda-9/celda-9-estado-1.png", "resources/sprites/celda-9/celda-9-estado-2.png", "resources/sprites/celda-9/celda-9-estado-3.png"};
+		String[] spritesCelda0 =  new String[]{"/resources/sprites/celda-0/celda-0-estado-0.png", "/resources/sprites/celda-0/celda-0-estado-1.png", "/resources/sprites/celda-0/celda-0-estado-2.png", "/resources/sprites/celda-0/celda-0-estado-3.png"};
+		String[] spritesCelda1 =  new String[]{"/resources/sprites/celda-1/celda-1-estado-0.png", "/resources/sprites/celda-1/celda-1-estado-1.png", "/resources/sprites/celda-1/celda-1-estado-2.png", "/resources/sprites/celda-1/celda-1-estado-3.png"};
+		String[] spritesCelda2 =  new String[]{"/resources/sprites/celda-2/celda-2-estado-0.png", "/resources/sprites/celda-2/celda-2-estado-1.png", "/resources/sprites/celda-2/celda-2-estado-2.png", "/resources/sprites/celda-2/celda-2-estado-3.png"};
+		String[] spritesCelda3 =  new String[]{"/resources/sprites/celda-3/celda-3-estado-0.png", "/resources/sprites/celda-3/celda-3-estado-1.png", "/resources/sprites/celda-3/celda-3-estado-2.png", "/resources/sprites/celda-3/celda-3-estado-3.png"};
+		String[] spritesCelda4 =  new String[]{"/resources/sprites/celda-4/celda-4-estado-0.png", "/resources/sprites/celda-4/celda-4-estado-1.png", "/resources/sprites/celda-4/celda-4-estado-2.png", "/resources/sprites/celda-4/celda-4-estado-3.png"};
+		String[] spritesCelda5 =  new String[]{"/resources/sprites/celda-5/celda-5-estado-0.png", "/resources/sprites/celda-5/celda-5-estado-1.png", "/resources/sprites/celda-5/celda-5-estado-2.png", "/resources/sprites/celda-5/celda-5-estado-3.png"};
+		String[] spritesCelda6 =  new String[]{"/resources/sprites/celda-6/celda-6-estado-0.png", "/resources/sprites/celda-6/celda-6-estado-1.png", "/resources/sprites/celda-6/celda-6-estado-2.png", "/resources/sprites/celda-6/celda-6-estado-3.png"};
+		String[] spritesCelda7 =  new String[]{"/resources/sprites/celda-7/celda-7-estado-0.png", "/resources/sprites/celda-7/celda-7-estado-1.png", "/resources/sprites/celda-7/celda-7-estado-2.png", "/resources/sprites/celda-7/celda-7-estado-3.png"};
+		String[] spritesCelda8 =  new String[]{"/resources/sprites/celda-8/celda-8-estado-0.png", "/resources/sprites/celda-8/celda-8-estado-1.png", "/resources/sprites/celda-8/celda-8-estado-2.png", "/resources/sprites/celda-8/celda-8-estado-3.png"};
+		String[] spritesCelda9 =  new String[]{"/resources/sprites/celda-9/celda-9-estado-0.png", "/resources/sprites/celda-9/celda-9-estado-1.png", "/resources/sprites/celda-9/celda-9-estado-2.png", "/resources/sprites/celda-9/celda-9-estado-3.png"};
 
 		spritesMap.put(0, spritesCelda0);
 		spritesMap.put(1, spritesCelda1);

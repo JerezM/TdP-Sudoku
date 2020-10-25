@@ -6,7 +6,8 @@ public interface TableroModel {
 
     /**
      * Establece el celdaFactory a utilizar.
-     * @param controller Controller que usara el TableroModel.
+     * @param factory Factory que usara el TableroModel.
      */
     public void setCeldaFactory(CeldaModelFactory factory);
+    
 }

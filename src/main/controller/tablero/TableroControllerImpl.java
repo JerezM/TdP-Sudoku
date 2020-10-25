@@ -7,7 +7,6 @@ import javax.swing.ImageIcon;
 
 import main.exception.SudokuFileException;
 import main.model.tablero.TableroModelController;
-import main.model.tablero.TableroModelImpl;
 import main.service.entry.Entry;
 import main.service.generador_sudoku.SudokuGeneratorService;
 import main.service.generador_sudoku.SudokuGeneratorServiceImpl;
@@ -18,14 +17,14 @@ import main.service.verificador_tablero.VerificadorTableroServiceImpl;
 import main.view.tablero.TableroViewController;
 import main.view.tablero.TableroViewImpl;
 
-public class TableroControllerImpl implements TableroControllerView, TableroControllerModel, TableroController {
+public class TableroControllerImpl implements TableroControllerView, TableroControllerModel {
     private static TableroControllerImpl instance;
     private TableroModelController tableroModel;
     private TableroViewController tableroView;
 
     private TableroControllerImpl() {
-        tableroModel = TableroModelImpl.getInstance();
-        tableroView = TableroViewImpl.getInstance();
+        this.tableroView = TableroViewImpl.getInstance();
+        tableroView.setController(this);
     }
 
     public static TableroControllerImpl getInstance() {
@@ -110,5 +109,15 @@ public class TableroControllerImpl implements TableroControllerView, TableroCont
 
         return tableroJugable;
     }
+
+	@Override
+	public void setTableroModel(TableroModelController tableroModel) {
+		this.tableroModel = tableroModel;
+	}
+
+	@Override
+	public void setTableroView(TableroViewController tableroView) {
+		this.tableroView = tableroView;
+	}
 
 }

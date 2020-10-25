@@ -29,9 +29,10 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
     private Map<Integer, Entry<Integer, Integer>> paneles;
 
     private TableroModelImpl() {
+    	this.controller = TableroControllerImpl.getInstance();
+    	this.controller.setTableroModel(this);
+    	
         this.inicializarMedidasPaneles();
-
-        controller = TableroControllerImpl.getInstance();
     }
 
     public static TableroModelImpl getInstance() {
@@ -260,7 +261,7 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
     public void notificarInicioTablero(List<Entry<Boolean, Entry<Entry<Integer, Integer>, ImageIcon>>> celdas) {
         controller.notificarInicioTablero(celdas);
     }
-
+    
     @Override
     public void setCeldaFactory(CeldaModelFactory factory) {
         celdaFactory = factory;

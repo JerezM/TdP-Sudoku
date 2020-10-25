@@ -3,6 +3,7 @@ package main.controller.tablero;
 import java.io.File;
 
 import main.exception.SudokuFileException;
+import main.view.tablero.TableroViewController;
 
 public interface TableroControllerView {
 
@@ -32,4 +33,10 @@ public interface TableroControllerView {
      * Le consulta al TableroModel si el mismo contiene algun error o si esta completo satisfactoriamente.
      */
     public void verificarTablero();
+    
+    /**
+     * Establece el tableroView con el que se comunicara el controller.
+     * @param tableroView tableroView que utilizara el controller.
+     */
+    public void setTableroView(TableroViewController tableroView);
 }

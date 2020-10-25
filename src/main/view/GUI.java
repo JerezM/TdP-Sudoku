@@ -20,7 +20,7 @@ public class GUI extends JFrame {
      */
     private GUI() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(300, 300, 400, 300);
+        setBounds(100, 100, 1051, 444);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(new BorderLayout(1, 1));

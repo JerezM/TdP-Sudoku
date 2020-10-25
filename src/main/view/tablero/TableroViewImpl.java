@@ -9,7 +9,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import main.controller.tablero.TableroControllerImpl;
 import main.controller.tablero.TableroControllerView;
 import main.service.entry.Entry;
 import main.view.GUI;
@@ -25,11 +24,10 @@ public class TableroViewImpl extends JPanel implements TableroViewCelda, Tablero
     private CeldaViewTablero[][] tableroCeldas;
 
     private TableroViewImpl() {
-        controller = TableroControllerImpl.getInstance();
-
         tableroCeldas = new CeldaViewTablero[9][9];
 
-        this.setLayout( new GridLayout(tableroCeldas.length, 0, 0, 0) );
+        this.setBounds(74, 56,405, 324);
+        this.setLayout( new GridLayout(tableroCeldas.length, tableroCeldas[0].length) );
     }
 
     public static TableroViewImpl getInstance() {
@@ -93,5 +91,10 @@ public class TableroViewImpl extends JPanel implements TableroViewCelda, Tablero
     public void actualizarSprite(int estado, int posX, int posY) {
         controller.actualizarSprite(estado, posX, posY);
     }
+
+	@Override
+	public void setController(TableroControllerView controller) {
+		this.controller = controller;
+	}
     
 }
