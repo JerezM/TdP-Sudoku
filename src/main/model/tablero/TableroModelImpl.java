@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.swing.ImageIcon;
 
+import main.controller.tablero.TableroControllerImpl;
 import main.controller.tablero.TableroControllerModel;
 import main.model.celda.CeldaModel;
 import main.model.celda.factories.CeldaModelFactory;
@@ -23,12 +24,14 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
 
     private CeldaModel[][] tableroCeldas;
     private int[][] tableroNumeros;
-    private int[][] tableroEstadoInicial;//Se utilizara para reiniciar el tablero
+  //private int[][] tableroEstadoInicial; -- Se utilizara para reiniciar el tablero
 
     private Map<Integer, Entry<Integer, Integer>> paneles;
 
     private TableroModelImpl() {
         this.inicializarMedidasPaneles();
+
+        controller = TableroControllerImpl.getInstance();
     }
 
     public static TableroModelImpl getInstance() {
@@ -42,7 +45,7 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
     @Override
     public void cargarTablero(int[][] tablero) {
         tableroNumeros = tablero;
-        tableroEstadoInicial = tablero;
+      //tableroEstadoInicial = tablero; -- proximo feature
 
         int rows = tableroNumeros.length;
         int columns = tableroNumeros[0].length;
@@ -256,12 +259,6 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
      */
     public void notificarInicioTablero(List<Entry<Boolean, Entry<Entry<Integer, Integer>, ImageIcon>>> celdas) {
         controller.notificarInicioTablero(celdas);
-    }
-
-    @Override
-    public void setController(TableroControllerModel controller) {
-        this.controller = controller;
-
     }
 
     @Override
