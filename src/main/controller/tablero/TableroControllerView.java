@@ -1,5 +1,7 @@
 package main.controller.tablero;
 
+import java.io.File;
+
 import main.exception.SudokuFileException;
 
 public interface TableroControllerView {
@@ -8,7 +10,7 @@ public interface TableroControllerView {
      * Se encarga de cargar el tablero contenido en el archivo parametrizado al TableroModel.
      * @throws SudokuFileException Se lanza si el archivo no cumple la sintaxis o el tablero interno es incorrecto.
      */
-    public void cargarTableroDesdeArchivo(/*Le pasa el file */) throws SudokuFileException;
+    public void cargarTableroDesdeArchivo(File file) throws SudokuFileException;
 
     /**
      * Actualiza el valor de la celda ubicada en la posicion parametrizada por el valor parametrizado.
