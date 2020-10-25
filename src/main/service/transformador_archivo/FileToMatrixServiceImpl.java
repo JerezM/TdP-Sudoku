@@ -10,10 +10,6 @@ import main.exception.SudokuFileException;
 
 public class FileToMatrixServiceImpl implements FileToMatrixService {
 
-    public FileToMatrixServiceImpl() {
-
-    }
-
     @Override
     public int[][] transform(File file) throws SudokuFileException {
         int[][] matrizGenerada = new int[9][9];
