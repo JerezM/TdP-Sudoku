@@ -211,10 +211,11 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
             for (int j = 0; j < tableroCeldas[0].length; j++) {
                 boolean estaEnPanelEjeX = (j >= inicioPanelX && j <= finPanelX );//esta adentro del panel seleccionado con respecto al eje x
                 boolean estaEnPanelEjeY = (i >= inicioPanelY && i <= finPanelY );//esta adentro del panel seleccionado con respecto al eje y
+                boolean estaEnPanel = (estaEnPanelEjeX && estaEnPanelEjeY);
                 boolean estaEnFilaPosX = (i == posY);//esta en la fila seleccionada
                 boolean estaEnColPosY = (j == posX);//esta en la columna seleccionada
                 
-                if (!estaEnPanelEjeX && !estaEnPanelEjeY && !estaEnFilaPosX && !estaEnColPosY) {//si no es una de las celdas seleccionadas
+                if (!estaEnPanel && !estaEnFilaPosX && !estaEnColPosY) {//si no es una de las celdas seleccionadas
                    
                     tableroCeldas[i][j].actualizarSpriteSeleccionada(noSelect);
 
