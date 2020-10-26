@@ -34,9 +34,11 @@ public class GUI extends JFrame {
     
     private void initComponents() {
 
-        this.setTitle("Sudoku");
+        setTitle("Sudoku");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 528, 452);
+        setBounds(300, 100, 528, 452);
+        setResizable(false);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
