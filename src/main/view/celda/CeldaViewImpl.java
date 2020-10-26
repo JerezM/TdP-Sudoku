@@ -57,6 +57,11 @@ public class CeldaViewImpl extends JLabel implements CeldaView {
         tablero.actualizarSprite(estado, posX, posY);
     }
 
+    @Override
+    public void deseleccionar() {
+        estaSeleccionada = false;
+    }
+
     /**
      * Pinta el sprite actual de la celda en si mismo.
      */
@@ -69,4 +74,15 @@ public class CeldaViewImpl extends JLabel implements CeldaView {
 			this.repaint();
 		}
     }
+
+    @Override
+    public int getPosX() {
+        return posX;
+    }
+
+    @Override
+    public int getPosY() {
+        return posY;
+    }
+
 }

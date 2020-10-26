@@ -12,7 +12,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import main.controller.tablero.TableroControllerView;
+import main.service.EstadosPosiblesCeldas;
 import main.service.entry.Entry;
+import main.service.entry.EntryImpl;
 import main.view.GUI;
 import main.view.celda.CeldaViewImpl;
 import main.view.celda.CeldaViewTablero;
@@ -24,9 +26,12 @@ public class TableroViewImpl extends JPanel implements TableroViewCelda, Tablero
     private TableroControllerView controller;
 
     private CeldaViewTablero[][] tableroCeldas;
+    private CeldaViewTablero celdaSeleccionada;
+
 
     private TableroViewImpl() {
         tableroCeldas = new CeldaViewTablero[9][9];
+        celdaSeleccionada = null;
 
         this.setBounds(25, 30, 297, 297);
         this.setLayout( new GridLayout(tableroCeldas.length, tableroCeldas[0].length) );
@@ -91,12 +96,35 @@ public class TableroViewImpl extends JPanel implements TableroViewCelda, Tablero
     }
 
     @Override
-    public void actualizarValor(int valor, int posX, int posY) {
+    public void actualizarValor(int valor) {
+        int posX = celdaSeleccionada.getPosX();
+        int posY = celdaSeleccionada.getPosY();
+
         controller.actualizarValor(valor, posX, posY);
     }
 
     @Override
     public void actualizarSprite(int estado, int posX, int posY) {
+
+        if (estado == EstadosPosiblesCeldas.CELDA_SELECCIONADA.getEstado()) {
+
+            if (celdaSeleccionada == null) {
+                celdaSeleccionada = tableroCeldas[posY][posX];
+            }
+            else {
+
+                int celdaSeleccionadaPosX = celdaSeleccionada.getPosX();
+                int celdaSeleccionadaPosY = celdaSeleccionada.getPosY();
+                tableroCeldas[celdaSeleccionadaPosY][celdaSeleccionadaPosX].deseleccionar();
+
+                celdaSeleccionada = tableroCeldas[posY][posX];
+            }
+        }
+        else if (estado == EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado()) {
+            celdaSeleccionada = null;
+        }
+
+
         controller.actualizarSprite(estado, posX, posY);
     }
 
