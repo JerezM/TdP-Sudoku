@@ -118,13 +118,15 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
 
     @Override
     public void actualizarSpriteCelda(int posX, int posY, int estado) {
-        int noSelect = EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado();
-        List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas = this.pintarTablero(noSelect);
+        
 
         if ( estado == EstadosPosiblesCeldas.CELDA_SELECCIONADA.getEstado() ) {
             tableroCeldas[posY][posX].actualizarSprite(estado);
         }
         else if ( estado == EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado() ) {//Si la celda en cuestion fue deseleccionada entonces simplemente notifico la limpieza del tablero
+            
+            int noSelect = EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado();
+            List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas = this.pintarTablero(noSelect);
             notificarCambios(celdas);
         }
 
@@ -150,7 +152,7 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
      * @return Una lista con las coordenadas de las celdas las cuales recibieron cambios en su estado, junto con su nuevo sprite.
      */
     protected List<Entry<Entry<Integer, Integer>, ImageIcon>> actualizarSpriteSeleccionadasIndirec(int posX, int posY, int estado) {
-        List<Entry<Integer, Integer>> celdas = new LinkedList<Entry<Integer, Integer>>();
+        List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas = new LinkedList<Entry<Entry<Integer, Integer>, ImageIcon>>();
         this.inicializarMedidasPaneles();
 
         int inicioPanelX = paneles.get(posX).getKey();
@@ -162,8 +164,14 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
         for (int i = 0; i < tableroCeldas[0].length; i++) {
             if (i < inicioPanelX || i > finPanelX) {
 
+                tableroCeldas[posY][i].actualizarSpriteSeleccionada(estado);
+
                 Entry<Integer, Integer> celdaActualCoordenadas = new EntryImpl<Integer, Integer>(i, posY);
-                celdas.add(celdaActualCoordenadas);
+                ImageIcon spriteCeldaActual = tableroCeldas[posY][i].getSpriteIcon();
+                Entry<Entry<Integer, Integer>, ImageIcon> datosCelda;
+                datosCelda = new EntryImpl<Entry<Integer,Integer>,ImageIcon>(celdaActualCoordenadas, spriteCeldaActual);
+
+                celdas.add(datosCelda);
             }
         }
 
@@ -171,8 +179,14 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
         for (int j = 0; j < tableroCeldas.length; j++) {
             if (j < inicioPanelY || j > finPanelY) {
                 
+                tableroCeldas[j][posX].actualizarSpriteSeleccionada(estado);
+
                 Entry<Integer, Integer> celdaActualCoordenadas = new EntryImpl<Integer, Integer>(posX, j);
-                celdas.add(celdaActualCoordenadas);
+                ImageIcon spriteCeldaActual = tableroCeldas[j][posX].getSpriteIcon();
+                Entry<Entry<Integer, Integer>, ImageIcon> datosCelda;
+                datosCelda = new EntryImpl<Entry<Integer,Integer>,ImageIcon>(celdaActualCoordenadas, spriteCeldaActual);
+
+                celdas.add(datosCelda);
             }
         }
 
@@ -180,12 +194,42 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
         for (int k = inicioPanelX; k <= finPanelX; k++) {
             for (int l = inicioPanelY; l <= finPanelY; l++) {
                 
+                tableroCeldas[l][k].actualizarSpriteSeleccionada(estado);
+
                 Entry<Integer, Integer> celdaActualCoordenadas = new EntryImpl<Integer, Integer>(k, l);
-                celdas.add(celdaActualCoordenadas);
+                ImageIcon spriteCeldaActual = tableroCeldas[l][k].getSpriteIcon();
+                Entry<Entry<Integer, Integer>, ImageIcon> datosCelda;
+                datosCelda = new EntryImpl<Entry<Integer,Integer>,ImageIcon>(celdaActualCoordenadas, spriteCeldaActual);
+
+                celdas.add(datosCelda);
             }
         }
+
+        //Deseleccionar las demas celdas
+        int noSelect = EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado();
+        for (int i = 0; i < tableroCeldas.length; i++) {
+            for (int j = 0; j < tableroCeldas[0].length; j++) {
+                boolean estaEnPanelEjeX = (j >= inicioPanelX && j <= finPanelX );//esta adentro del panel seleccionado con respecto al eje x
+                boolean estaEnPanelEjeY = (i >= inicioPanelY && i <= finPanelY );//esta adentro del panel seleccionado con respecto al eje y
+                boolean estaEnFilaPosX = (i == posY);//esta en la fila seleccionada
+                boolean estaEnColPosY = (j == posX);//esta en la columna seleccionada
+                
+                if (!estaEnPanelEjeX && !estaEnPanelEjeY && !estaEnFilaPosX && !estaEnColPosY) {//si no es una de las celdas seleccionadas
+                   
+                    tableroCeldas[i][j].actualizarSpriteSeleccionada(noSelect);
+
+                    Entry<Integer, Integer> celdaActualCoordenadas = new EntryImpl<Integer, Integer>(j, i);
+                    ImageIcon spriteCeldaActual = tableroCeldas[i][j].getSpriteIcon();
+                    Entry<Entry<Integer, Integer>, ImageIcon> datosCelda;
+                    datosCelda = new EntryImpl<Entry<Integer,Integer>,ImageIcon>(celdaActualCoordenadas, spriteCeldaActual);
+
+                    celdas.add(datosCelda);
+                }
+            }
+            
+        }
         
-        return this.actualizarSpriteSeleccionadas(celdas, estado);
+        return celdas;
     }
 
     /**
