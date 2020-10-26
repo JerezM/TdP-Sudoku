@@ -60,7 +60,7 @@ public class TableroViewImpl extends JPanel implements TableroViewCelda, Tablero
 
         GUI gui = GUI.getInstance();
         gui.getContentPane().add(this);
-        
+        gui.validate();
     }
 
     @Override

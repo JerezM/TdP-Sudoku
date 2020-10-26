@@ -41,7 +41,7 @@ public class GUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
         contentPane.setLayout(null);
-        contentPane.setBackground(new Color(233,0,0));
+        contentPane.setBackground(new Color(233,233,233));
 		
         JPanel tablero = TableroViewImpl.getInstance();
         contentPane.add(tablero);
