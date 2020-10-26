@@ -1,6 +1,8 @@
 package main.view.botones.nuevo_juego;
 
 import java.awt.event.WindowEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.JButton;
@@ -13,16 +15,16 @@ import main.exception.SudokuFileException;
 import main.view.GUI;
 
 @SuppressWarnings("serial")
-public class NuevoJuevoBtn extends JButton {
+public class NuevoJuegoBtn extends JButton implements ActionListener {
     private TableroControllerView controller;
 
     private static final GUI gui = GUI.getInstance();
     
-    public NuevoJuevoBtn() {
+    public NuevoJuegoBtn() {
         this.setText("Nuevo Juego");
         this.setBounds(345, 30, 160, 23);
 
-        this.addActionListener(new NuevoJuegoListener());
+        this.addActionListener(this);
 
         controller = TableroControllerImpl.getInstance();
     }
@@ -65,5 +67,10 @@ public class NuevoJuevoBtn extends JButton {
     protected void mostrarCartel(String msg) {
         JOptionPane.showInternalMessageDialog(null, msg);
         gui.dispatchEvent( new WindowEvent(gui, WindowEvent.WINDOW_CLOSING) );
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        this.abrirFileChooser();
     }
 }

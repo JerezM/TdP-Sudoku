@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import main.view.botones.nuevo_juego.NuevoJuevoBtn;
+import main.view.botones.nuevo_juego.NuevoJuegoBtn;
 import main.view.tablero.TableroViewImpl;
 
 @SuppressWarnings("serial")
@@ -54,7 +54,7 @@ public class GUI extends JFrame {
         opciones.setLayout(null);
         opciones.setBackground(new Color(0,0,233));
 		
-		JButton btnNuevoJuego = new NuevoJuevoBtn();
+		JButton btnNuevoJuego = new NuevoJuegoBtn();
 		contentPane.add(btnNuevoJuego);
 		
 		JButton btnVerificarTablero = new JButton("Verificar Tablero");
