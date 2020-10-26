@@ -3,6 +3,7 @@ package main.view.tablero;
 import java.util.List;
 
 import java.awt.event.WindowEvent;
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.ImageIcon;
@@ -27,10 +28,10 @@ public class TableroViewImpl extends JPanel implements TableroViewCelda, Tablero
     private TableroViewImpl() {
         tableroCeldas = new CeldaViewTablero[9][9];
 
-        this.setBounds(0, 0, 297, 297);
-        this.setLayout( new GridLayout(tableroCeldas.length, tableroCeldas[0].length, 0, 0) );
+        this.setBounds(25, 30, 297, 297);
+        this.setLayout( new GridLayout(tableroCeldas.length, tableroCeldas[0].length) );
+        this.setBackground(new Color(0,0,0));
         
-        this.setVisible(true);
     }
 
     public static TableroViewImpl getInstance() {
@@ -57,9 +58,9 @@ public class TableroViewImpl extends JPanel implements TableroViewCelda, Tablero
             this.add((JLabel) tableroCeldas[posY][posX]);
         }
 
-        this.setVisible(true);
-        GUI.getInstance().getContentPane().add(this);
-        GUI.getInstance().getContentPane().setVisible(true);
+        GUI gui = GUI.getInstance();
+        gui.getContentPane().add(this);
+        
     }
 
     @Override

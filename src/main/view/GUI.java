@@ -1,5 +1,6 @@
 package main.view;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -19,22 +20,8 @@ public class GUI extends JFrame {
      * Create the frame.
      */
     private GUI() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 1024, 444);
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        contentPane.setLayout(new GridLayout(1, 2));
-        setContentPane(contentPane);
-        //this.setResizable(false);
-        this.setTitle("Sudoku");
 
-        JButton nuevoJuegoBtn = new NuevoJuevoBtn();
-        JPanel tablero = TableroViewImpl.getInstance();
-
-
-        contentPane.add(nuevoJuegoBtn);
-        contentPane.add(tablero);
-
+        this.initComponents();
 
 	}
 	
@@ -44,5 +31,40 @@ public class GUI extends JFrame {
 		}
 		
 		return instance;
-	}
+    }
+    
+    private void initComponents() {
+
+        this.setTitle("Sudoku");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 528, 452);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+        contentPane.setLayout(null);
+        contentPane.setBackground(new Color(233,0,0));
+		
+        JPanel tablero = TableroViewImpl.getInstance();
+        contentPane.add(tablero);
+		
+		JPanel opciones = new JPanel();
+		opciones.setBounds(25, 358, 297, 33);
+		contentPane.add(opciones);
+        opciones.setLayout(null);
+        opciones.setBackground(new Color(0,0,233));
+		
+		JButton btnNuevoJuego = new NuevoJuevoBtn();
+		contentPane.add(btnNuevoJuego);
+		
+		JButton btnVerificarTablero = new JButton("Verificar Tablero");
+		btnVerificarTablero.setBounds(345, 64, 160, 23);
+		contentPane.add(btnVerificarTablero);
+		
+		JPanel timer = new JPanel();
+		timer.setBounds(345, 108, 111, 33);
+		contentPane.add(timer);
+        timer.setLayout(null);
+        timer.setBackground(new Color(233,233,0));
+
+    }
 }
