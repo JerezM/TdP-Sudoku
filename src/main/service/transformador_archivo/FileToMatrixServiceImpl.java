@@ -37,13 +37,13 @@ public class FileToMatrixServiceImpl implements FileToMatrixService {
                 }
             }
 
-            scn.close();
+            
 
             if (!cumpleFormato || (cumpleFormato && scn.hasNextLine() )) {
                 throw new SudokuFileException("El archivo seleccionado no cumple con el formato indicado.");
             }
 
-            
+            scn.close();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
