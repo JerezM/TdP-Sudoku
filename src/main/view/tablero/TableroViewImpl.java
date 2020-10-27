@@ -98,7 +98,10 @@ public class TableroViewImpl extends JPanel implements TableroViewCelda, Tablero
         int posX = celdaSeleccionada.getPosX();
         int posY = celdaSeleccionada.getPosY();
 
+        celdaSeleccionada = null;
+
         controller.actualizarValor(valor, posX, posY);
+
     }
 
     @Override

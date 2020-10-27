@@ -1,7 +1,6 @@
 package main.view.opciones_numeros;
 
 import java.awt.GridLayout;
-import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -40,7 +39,17 @@ public class OpcionesNumeros extends JPanel {
     }
 
     protected int buscarValorBtnSeleccionado(JButton btnPresionado) {
-        int valor = 1;//eeveee
+        int valor = -1;//unused value
+        boolean encontro = false;
+
+        for (int index = 0; index < arrOpciones.length && !encontro; index++) {
+            
+            encontro = ( arrOpciones[index] == btnPresionado );
+
+            if(encontro) valor = index;
+
+        }
+
 
         return valor;
     }
@@ -89,7 +98,6 @@ public class OpcionesNumeros extends JPanel {
         for (int i = 0; i < arrOpciones.length; i++) {
             this.add(arrOpciones[i]);
         }
-        
 
     }
 }
