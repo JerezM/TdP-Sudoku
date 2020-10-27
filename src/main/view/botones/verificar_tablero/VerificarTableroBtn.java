@@ -14,7 +14,7 @@ public class VerificarTableroBtn extends JButton implements ActionListener {
 
     public VerificarTableroBtn() {
         this.setText("Verificar Tablero");
-        this.setBounds(345, 64, 160, 23);
+        this.setBounds(545, 84, 160, 23);
 
         this.addActionListener(this);
 

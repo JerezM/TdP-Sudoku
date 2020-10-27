@@ -38,7 +38,7 @@ public class GUI extends JFrame {
 
         setTitle("Sudoku");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(300, 100, 528, 452);
+        setBounds(300, 25, 755, 637);
         setResizable(false);
 
 		contentPane = new JPanel();
@@ -60,7 +60,7 @@ public class GUI extends JFrame {
 		contentPane.add(btnVerificarTablero);
 		
 		JPanel timer = new JPanel();
-		timer.setBounds(345, 108, 111, 33);
+		timer.setBounds(545, 128, 80, 17);
 		contentPane.add(timer);
         timer.setLayout(null);
         timer.setBackground(new Color(233,233,0));

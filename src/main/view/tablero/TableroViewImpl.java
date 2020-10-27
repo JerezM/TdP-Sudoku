@@ -32,7 +32,7 @@ public class TableroViewImpl extends JPanel implements TableroViewCelda, Tablero
         tableroCeldas = new CeldaViewTablero[9][9];
         celdaSeleccionada = null;
 
-        this.setBounds(25, 30, 297, 297);
+        this.setBounds(74, 50, 441, 441);
         this.setLayout( new GridLayout(tableroCeldas.length, tableroCeldas[0].length) );
         this.setBackground(new Color(0,0,0));
         

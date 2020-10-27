@@ -20,7 +20,7 @@ public class OpcionesNumeros extends JPanel {
     public OpcionesNumeros() {
         this.tablero = TableroViewImpl.getInstance();
 
-        this.setBounds(25, 358, 297, 33);
+        this.setBounds(50, 538, 490, 49);
         this.setLayout( new GridLayout(1, 10) );
 
         this.inicializarArrayOpciones();
@@ -83,16 +83,16 @@ public class OpcionesNumeros extends JPanel {
 
 
         //Inicializo todos los btns
-        arrOpciones[0] = btnFactory.createOptionBtn(33, 33, imgBtn0);
-        arrOpciones[1] = btnFactory.createOptionBtn(33, 33, imgBtn1);
-        arrOpciones[2] = btnFactory.createOptionBtn(33, 33, imgBtn2);
-        arrOpciones[3] = btnFactory.createOptionBtn(33, 33, imgBtn3);
-        arrOpciones[4] = btnFactory.createOptionBtn(33, 33, imgBtn4);
-        arrOpciones[5] = btnFactory.createOptionBtn(33, 33, imgBtn5);
-        arrOpciones[6] = btnFactory.createOptionBtn(33, 33, imgBtn6);
-        arrOpciones[7] = btnFactory.createOptionBtn(33, 33, imgBtn7);
-        arrOpciones[8] = btnFactory.createOptionBtn(33, 33, imgBtn8);
-        arrOpciones[9] = btnFactory.createOptionBtn(33, 33, imgBtn9);
+        arrOpciones[0] = btnFactory.createOptionBtn(49, 49, imgBtn0);
+        arrOpciones[1] = btnFactory.createOptionBtn(49, 49, imgBtn1);
+        arrOpciones[2] = btnFactory.createOptionBtn(49, 49, imgBtn2);
+        arrOpciones[3] = btnFactory.createOptionBtn(49, 49, imgBtn3);
+        arrOpciones[4] = btnFactory.createOptionBtn(49, 49, imgBtn4);
+        arrOpciones[5] = btnFactory.createOptionBtn(49, 49, imgBtn5);
+        arrOpciones[6] = btnFactory.createOptionBtn(49, 49, imgBtn6);
+        arrOpciones[7] = btnFactory.createOptionBtn(49, 49, imgBtn7);
+        arrOpciones[8] = btnFactory.createOptionBtn(49, 49, imgBtn8);
+        arrOpciones[9] = btnFactory.createOptionBtn(49, 49, imgBtn9);
         
         //Agrego los btns al panel
         for (int i = 0; i < arrOpciones.length; i++) {

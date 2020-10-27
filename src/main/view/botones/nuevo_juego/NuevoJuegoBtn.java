@@ -22,7 +22,7 @@ public class NuevoJuegoBtn extends JButton implements ActionListener {
     
     public NuevoJuegoBtn() {
         this.setText("Nuevo Juego");
-        this.setBounds(345, 30, 160, 23);
+        this.setBounds(545, 50, 160, 23);
 
         this.addActionListener(this);
 

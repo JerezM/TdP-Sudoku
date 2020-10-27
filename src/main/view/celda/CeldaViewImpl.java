@@ -29,7 +29,7 @@ public class CeldaViewImpl extends JLabel implements CeldaView {
         tablero = TableroViewImpl.getInstance();
         estaSeleccionada = false;
 
-        this.setSize(33, 33);
+        this.setSize(49, 49);//Size de las celdas
         
         this.pintarSprite();
         this.setVisible(true);
