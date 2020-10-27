@@ -19,7 +19,7 @@ import main.view.celda.CeldaViewImpl;
 import main.view.celda.CeldaViewTablero;
 
 @SuppressWarnings("serial")
-public class TableroViewImpl extends JPanel implements TableroViewCelda, TableroViewController, TableroViewOpciones {
+public class TableroViewImpl extends JPanel implements TableroViewCelda, TableroViewController, TableroViewOpciones, TableroViewVerificar {
     private static TableroViewImpl instance;
 
     private TableroControllerView controller;
@@ -140,6 +140,13 @@ public class TableroViewImpl extends JPanel implements TableroViewCelda, Tablero
         boolean haySeleccionada = (celdaSeleccionada != null);
 
         return haySeleccionada;
+    }
+
+    @Override
+    public void verificarTablero() {
+        if(tableroCeldas[0][0] != null) {//Si el tablero esta inicializado
+            this.controller.verificarTablero();
+        }
     }
     
 

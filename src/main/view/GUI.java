@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import main.view.botones.nuevo_juego.NuevoJuegoBtn;
+import main.view.botones.verificar_tablero.VerificarTableroBtn;
 import main.view.opciones_numeros.OpcionesNumeros;
 import main.view.tablero.TableroViewImpl;
 
@@ -55,8 +56,7 @@ public class GUI extends JFrame {
 		JButton btnNuevoJuego = new NuevoJuegoBtn();
 		contentPane.add(btnNuevoJuego);
 		
-		JButton btnVerificarTablero = new JButton("Verificar Tablero");
-		btnVerificarTablero.setBounds(345, 64, 160, 23);
+		JButton btnVerificarTablero = new VerificarTableroBtn();
 		contentPane.add(btnVerificarTablero);
 		
 		JPanel timer = new JPanel();
