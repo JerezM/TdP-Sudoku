@@ -2,7 +2,7 @@ package main.model.celda;
 
 import javax.swing.ImageIcon;
 
-import main.model.celda.entidadesGraficas.EntidadGraficaCelda;
+import main.model.celda.entidad_grafica.EntidadGraficaCelda;
 import main.model.tablero.TableroModelCelda;
 import main.model.tablero.TableroModelImpl;
 
