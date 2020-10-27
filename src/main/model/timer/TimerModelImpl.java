@@ -5,6 +5,8 @@ import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 
+import main.controller.timer.TimerController;
+import main.controller.timer.TimerControllerImpl;
 import main.model.timer.entidad_grafica.EntidadGraficaTimer;
 import main.model.timer.entidad_grafica.EntidadGraficaTimerImpl;
 
@@ -12,7 +14,7 @@ public class TimerModelImpl extends TimerTask implements TimerModel {
     
     private static TimerModelImpl instance;
 
-    //private TimerController controller;
+    private TimerController controller;
     private EntidadGraficaTimer entidadGrafica;
 
     private Timer timer;
@@ -25,6 +27,8 @@ public class TimerModelImpl extends TimerTask implements TimerModel {
     private ImageIcon[] sprites;
 
     private TimerModelImpl() {
+        controller = TimerControllerImpl.getInstance();
+
         entidadGrafica = new EntidadGraficaTimerImpl();
 
         timer = new Timer();
@@ -76,7 +80,7 @@ public class TimerModelImpl extends TimerTask implements TimerModel {
         ssUnidad = ss % 10;
 
         sprites = entidadGrafica.getSpriteIcons(hhDecimal, hhUnidad, mmDecimal, mmUnidad, ssDecimal, ssUnidad);
-        //controller.notificarCambioSprites(sprites);
+        controller.notificarCambiosSprites(sprites);
     }
     
 }
