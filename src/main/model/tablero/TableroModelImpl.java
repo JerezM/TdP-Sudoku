@@ -164,14 +164,17 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
         for (int i = 0; i < tableroCeldas[0].length; i++) {
             if (i < inicioPanelX || i > finPanelX) {
 
-                tableroCeldas[posY][i].actualizarSpriteSeleccionada(estado);
+                boolean esCeldaSeleccionada = (i == posX);
+                if (!esCeldaSeleccionada) {
+                    tableroCeldas[posY][i].actualizarSpriteSeleccionada(estado);
 
-                Entry<Integer, Integer> celdaActualCoordenadas = new EntryImpl<Integer, Integer>(i, posY);
-                ImageIcon spriteCeldaActual = tableroCeldas[posY][i].getSpriteIcon();
-                Entry<Entry<Integer, Integer>, ImageIcon> datosCelda;
-                datosCelda = new EntryImpl<Entry<Integer,Integer>,ImageIcon>(celdaActualCoordenadas, spriteCeldaActual);
+                    Entry<Integer, Integer> celdaActualCoordenadas = new EntryImpl<Integer, Integer>(i, posY);
+                    ImageIcon spriteCeldaActual = tableroCeldas[posY][i].getSpriteIcon();
+                    Entry<Entry<Integer, Integer>, ImageIcon> datosCelda;
+                    datosCelda = new EntryImpl<Entry<Integer,Integer>,ImageIcon>(celdaActualCoordenadas, spriteCeldaActual);
 
-                celdas.add(datosCelda);
+                    celdas.add(datosCelda);
+                }
             }
         }
 
@@ -179,14 +182,17 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
         for (int j = 0; j < tableroCeldas.length; j++) {
             if (j < inicioPanelY || j > finPanelY) {
                 
-                tableroCeldas[j][posX].actualizarSpriteSeleccionada(estado);
+                boolean esCeldaSeleccionada = (j == posY);
+                if (!esCeldaSeleccionada) {
+                    tableroCeldas[j][posX].actualizarSpriteSeleccionada(estado);
 
-                Entry<Integer, Integer> celdaActualCoordenadas = new EntryImpl<Integer, Integer>(posX, j);
-                ImageIcon spriteCeldaActual = tableroCeldas[j][posX].getSpriteIcon();
-                Entry<Entry<Integer, Integer>, ImageIcon> datosCelda;
-                datosCelda = new EntryImpl<Entry<Integer,Integer>,ImageIcon>(celdaActualCoordenadas, spriteCeldaActual);
+                    Entry<Integer, Integer> celdaActualCoordenadas = new EntryImpl<Integer, Integer>(posX, j);
+                    ImageIcon spriteCeldaActual = tableroCeldas[j][posX].getSpriteIcon();
+                    Entry<Entry<Integer, Integer>, ImageIcon> datosCelda;
+                    datosCelda = new EntryImpl<Entry<Integer,Integer>,ImageIcon>(celdaActualCoordenadas, spriteCeldaActual);
 
-                celdas.add(datosCelda);
+                    celdas.add(datosCelda);
+                }
             }
         }
 
@@ -194,14 +200,17 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
         for (int k = inicioPanelX; k <= finPanelX; k++) {
             for (int l = inicioPanelY; l <= finPanelY; l++) {
                 
-                tableroCeldas[l][k].actualizarSpriteSeleccionada(estado);
+                boolean esCeldaSeleccionada = ( (k == posX) && (l == posY) );
+                if (!esCeldaSeleccionada) {
+                    tableroCeldas[l][k].actualizarSpriteSeleccionada(estado);
 
-                Entry<Integer, Integer> celdaActualCoordenadas = new EntryImpl<Integer, Integer>(k, l);
-                ImageIcon spriteCeldaActual = tableroCeldas[l][k].getSpriteIcon();
-                Entry<Entry<Integer, Integer>, ImageIcon> datosCelda;
-                datosCelda = new EntryImpl<Entry<Integer,Integer>,ImageIcon>(celdaActualCoordenadas, spriteCeldaActual);
+                    Entry<Integer, Integer> celdaActualCoordenadas = new EntryImpl<Integer, Integer>(k, l);
+                    ImageIcon spriteCeldaActual = tableroCeldas[l][k].getSpriteIcon();
+                    Entry<Entry<Integer, Integer>, ImageIcon> datosCelda;
+                    datosCelda = new EntryImpl<Entry<Integer,Integer>,ImageIcon>(celdaActualCoordenadas, spriteCeldaActual);
 
-                celdas.add(datosCelda);
+                    celdas.add(datosCelda);
+                }
             }
         }
 
