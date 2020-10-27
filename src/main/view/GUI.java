@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import main.view.botones.nuevo_juego.NuevoJuegoBtn;
+import main.view.opciones_numeros.OpcionesNumeros;
 import main.view.tablero.TableroViewImpl;
 
 @SuppressWarnings("serial")
@@ -45,14 +46,11 @@ public class GUI extends JFrame {
         contentPane.setLayout(null);
         contentPane.setBackground(new Color(233,233,233));
 		
+        JPanel opciones = new OpcionesNumeros();
+		contentPane.add(opciones);
+        
         JPanel tablero = TableroViewImpl.getInstance();
         contentPane.add(tablero);
-		
-		JPanel opciones = new JPanel();
-		opciones.setBounds(25, 358, 297, 33);
-		contentPane.add(opciones);
-        opciones.setLayout(null);
-        opciones.setBackground(new Color(0,0,233));
 		
 		JButton btnNuevoJuego = new NuevoJuegoBtn();
 		contentPane.add(btnNuevoJuego);

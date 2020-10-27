@@ -14,20 +14,19 @@ import javax.swing.JPanel;
 import main.controller.tablero.TableroControllerView;
 import main.service.EstadosPosiblesCeldas;
 import main.service.entry.Entry;
-import main.service.entry.EntryImpl;
 import main.view.GUI;
 import main.view.celda.CeldaViewImpl;
 import main.view.celda.CeldaViewTablero;
 
 @SuppressWarnings("serial")
-public class TableroViewImpl extends JPanel implements TableroViewCelda, TableroViewController, TableroView {
+public class TableroViewImpl extends JPanel implements TableroViewCelda, TableroViewController, TableroViewOpciones {
     private static TableroViewImpl instance;
 
     private TableroControllerView controller;
+    private GUI gui;
 
     private CeldaViewTablero[][] tableroCeldas;
     private CeldaViewTablero celdaSeleccionada;
-
 
     private TableroViewImpl() {
         tableroCeldas = new CeldaViewTablero[9][9];
@@ -63,9 +62,9 @@ public class TableroViewImpl extends JPanel implements TableroViewCelda, Tablero
             this.add((JLabel) tableroCeldas[posY][posX]);
         }
 
-        GUI gui = GUI.getInstance();
-        gui.getContentPane().add(this);
-        gui.validate();
+        this.gui = GUI.getInstance();
+        this.gui.getContentPane().add(this);
+        this.gui.validate();
     }
 
     @Override
@@ -80,7 +79,8 @@ public class TableroViewImpl extends JPanel implements TableroViewCelda, Tablero
 
             tableroCeldas[posY][posX].notificarCambio(sprite);
         }
-
+        
+        this.repaint();
     }
 
     @Override
@@ -88,10 +88,8 @@ public class TableroViewImpl extends JPanel implements TableroViewCelda, Tablero
         this.notificarCambios(celdas);
 
         if(resultado) {//Si el tablero esta completo correctamente
-            GUI gui = GUI.getInstance();
-
             JOptionPane.showInternalMessageDialog(null, "Has Ganado!!");
-            gui.dispatchEvent( new WindowEvent(gui, WindowEvent.WINDOW_CLOSING) );
+            this.gui.dispatchEvent( new WindowEvent(gui, WindowEvent.WINDOW_CLOSING) );
         }
     }
 
@@ -119,12 +117,13 @@ public class TableroViewImpl extends JPanel implements TableroViewCelda, Tablero
 
                 celdaSeleccionada = tableroCeldas[posY][posX];
             }
+
         }
         else if (estado == EstadosPosiblesCeldas.CELDA_NO_SELECCIONADA.getEstado()) {
             celdaSeleccionada = null;
         }
 
-
+        this.repaint();
         controller.actualizarSprite(estado, posX, posY);
     }
 
@@ -132,5 +131,14 @@ public class TableroViewImpl extends JPanel implements TableroViewCelda, Tablero
 	public void setController(TableroControllerView controller) {
 		this.controller = controller;
 	}
+
+    @Override
+    public boolean hayCeldaSeleccionada() {
+        boolean haySeleccionada = (celdaSeleccionada != null);
+
+        return haySeleccionada;
+    }
+    
+
     
 }
