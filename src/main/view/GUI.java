@@ -11,6 +11,7 @@ import main.view.botones.nuevo_juego.NuevoJuegoBtn;
 import main.view.botones.verificar_tablero.VerificarTableroBtn;
 import main.view.opciones_numeros.OpcionesNumeros;
 import main.view.tablero.TableroViewImpl;
+import main.view.timer.TimerViewImpl;
 
 @SuppressWarnings("serial")
 public class GUI extends JFrame {
@@ -59,11 +60,8 @@ public class GUI extends JFrame {
 		JButton btnVerificarTablero = new VerificarTableroBtn();
 		contentPane.add(btnVerificarTablero);
 		
-		JPanel timer = new JPanel();
-		timer.setBounds(545, 128, 80, 17);
+		JPanel timer = TimerViewImpl.getInstance();
 		contentPane.add(timer);
-        timer.setLayout(null);
-        timer.setBackground(new Color(233,233,0));
 
     }
 }
