@@ -50,7 +50,7 @@ public class TimerModelImpl extends TimerTask implements TimerModel {
     }
 
     @Override
-    public String pararTimer() {
+    public String detenerTimer() {
         timer.cancel();
 
         return this.toString();

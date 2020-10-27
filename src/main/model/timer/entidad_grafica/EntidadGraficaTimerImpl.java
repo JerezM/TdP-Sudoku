@@ -36,6 +36,7 @@ public class EntidadGraficaTimerImpl implements EntidadGraficaTimer {
         sprites[6] = map.get(s1);
         sprites[7] = map.get(s2);
 
+
         return sprites;
     }
     
@@ -47,7 +48,7 @@ public class EntidadGraficaTimerImpl implements EntidadGraficaTimer {
         ImageIcon img0 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/numero-0.png"));
         img0.setImage( img0.getImage());
 
-        ImageIcon img1 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/numero-1.png"));
+        ImageIcon img1 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/numbero-1.png"));
         img1.setImage( img1.getImage());
 
         ImageIcon img2 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/numero-2.png"));

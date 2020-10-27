@@ -84,11 +84,12 @@ public class TableroViewImpl extends JPanel implements TableroViewCelda, Tablero
     }
 
     @Override
-    public void notificarVerificacionTablero(boolean resultado, List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas) {
+    public void notificarVerificacionTablero(boolean resultado, List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas,
+                                             String tiempoTotal) {
         this.notificarCambios(celdas);
 
         if(resultado) {//Si el tablero esta completo correctamente
-            JOptionPane.showInternalMessageDialog(null, "Has Ganado!!");
+            JOptionPane.showInternalMessageDialog(null, "Has Ganado!!\n"+tiempoTotal );
             this.gui.dispatchEvent( new WindowEvent(gui, WindowEvent.WINDOW_CLOSING) );
         }
     }

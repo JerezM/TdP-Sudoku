@@ -11,6 +11,8 @@ import main.controller.tablero.TableroControllerImpl;
 import main.controller.tablero.TableroControllerModel;
 import main.model.celda.CeldaModel;
 import main.model.celda.factories.CeldaModelFactory;
+import main.model.timer.TimerModel;
+import main.model.timer.TimerModelImpl;
 import main.service.entry.*;
 import main.service.EstadosPosiblesCeldas;
 import main.service.verificador_tablero.VerificadorTableroService;
@@ -21,6 +23,8 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
 
     private TableroControllerModel controller;
     private CeldaModelFactory celdaFactory;
+    
+    private TimerModel timer;
 
     private CeldaModel[][] tableroCeldas;
     private int[][] tableroNumeros;
@@ -30,7 +34,9 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
 
     private TableroModelImpl() {
     	this.controller = TableroControllerImpl.getInstance();
-    	this.controller.setTableroModel(this);
+        this.controller.setTableroModel(this);
+        
+        this.timer = TimerModelImpl.getInstance();
     	
         this.inicializarMedidasPaneles();
     }
@@ -77,6 +83,7 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
         }
 
         this.notificarInicioTablero(celdas);
+        this.timer.iniciarTimer();
     }
 
     @Override
@@ -87,6 +94,7 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
         boolean cumple = e.getKey();
 
         List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas;
+        String tiempoTotal = "";//Se utilizara para indicar el tiempo trancurrido en caso de ganar la partida.
 
         if(!cumple){//En caso de ser incorrecto se encarga de marcar las celdas con errores.
             List<Entry<Integer, Integer>> listErrores = e.getValue();
@@ -100,9 +108,11 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
         else {//En caso de haber ganado el juego pinta todas las celdas como seleccionadas.
             int select = EstadosPosiblesCeldas.CELDA_SELECCIONADA.getEstado();
             celdas = this.pintarTablero(select);
+            
+            tiempoTotal = timer.detenerTimer();
         }
         
-        this.notificarVerificacionTablero(cumple, celdas);
+        this.notificarVerificacionTablero(cumple, celdas, tiempoTotal);
     }
 
     @Override
@@ -303,9 +313,15 @@ public class TableroModelImpl implements TableroModelController, TableroModelCel
     /**
      * Le notifica al tableroController de si el tablero actual se encuentra en un estado ganador, o si contiene errores.
      * @param resultado True en caso de ser un tablero completo y correcto, Falso en caso de contener errores.
+     * @param celdas colleccion de celdas con las coordenas de las celdas a actualizar.
+     * @param tiempoTotal en caso de que el resultado sea true,
+     * este string va a indicar la cantidad de tiempo que se tardo en resolver el tablero.
+     * En caso de ser false, simplemente sera una string vacio.
+     *  
      */
-    protected void notificarVerificacionTablero(boolean resultado, List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas) {
-        controller.notificarVerificacionTablero(resultado, celdas);
+    protected void notificarVerificacionTablero(boolean resultado, List<Entry<Entry<Integer, Integer>,
+                                                ImageIcon>> celdas, String tiempoTotal) {
+        controller.notificarVerificacionTablero(resultado, celdas, tiempoTotal);
     }
 
     /**

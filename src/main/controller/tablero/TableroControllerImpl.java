@@ -77,8 +77,10 @@ public class TableroControllerImpl implements TableroControllerView, TableroCont
     }
 
     @Override
-    public void notificarVerificacionTablero(boolean resultado, List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas) {   
-        tableroView.notificarVerificacionTablero(resultado, celdas);
+    public void notificarVerificacionTablero(boolean resultado, List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas,
+                                             String tiempoTotal) {   
+
+        tableroView.notificarVerificacionTablero(resultado, celdas, tiempoTotal);
     }
 
     /**

@@ -15,5 +15,5 @@ public interface TimerModel {
      * Le indica al timer que se detenga.
      * @return String indicando el tiempo transcurrido.
      */
-    public String pararTimer();
+    public String detenerTimer();
 }

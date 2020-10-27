@@ -29,8 +29,12 @@ public interface TableroViewController {
      * @param resultado Indica el resultado del tablero.
      * @param celdas  Colleccion de coordenadas de celdas en las cuales se notificaron cambios, con sus respectivos sprites.
      *  Vease: List<< posX, posY>, sprite>.
+     * @param tiempoTotal en caso de que el resultado sea true,
+     * este string va a indicar la cantidad de tiempo que se tardo en resolver el tablero.
+     * En caso de ser false, simplemente sera una string vacio.
      */
-    public void notificarVerificacionTablero(boolean resultado, List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas);
+    public void notificarVerificacionTablero(boolean resultado, List<Entry<Entry<Integer, Integer>, ImageIcon>> celdas,
+                                             String timepoTotal);
     
     /**
      * Establece el controller con el que se comunicara la view.
