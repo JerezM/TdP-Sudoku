@@ -2,18 +2,18 @@ package main.model.celda;
 
 import javax.swing.ImageIcon;
 
-import main.model.celda.entidadesGraficas.EntidadGrafica;
+import main.model.celda.entidadesGraficas.EntidadGraficaCelda;
 import main.model.tablero.TableroModelCelda;
 import main.model.tablero.TableroModelImpl;
 
 public class CeldaModelImpl implements CeldaModel {
 	
 	private int valor;
-	private EntidadGrafica entidadGrafica;
+	private EntidadGraficaCelda entidadGrafica;
 	private int posX, posY;
 	private TableroModelCelda tablero;
 	
-	public CeldaModelImpl(Integer valorInicial, EntidadGrafica entidadGrafica, int posX, int posY) {
+	public CeldaModelImpl(Integer valorInicial, EntidadGraficaCelda entidadGrafica, int posX, int posY) {
 		this.valor = valorInicial;
 		this.entidadGrafica = entidadGrafica;
 		this.posX = posX;

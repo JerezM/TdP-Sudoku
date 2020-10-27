@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 
 import main.service.EstadosPosiblesCeldas;
 
-public class EntidadGraficaPokemon implements EntidadGrafica {
+public class EntidadGraficaPokemon implements EntidadGraficaCelda {
     private ImageIcon spriteIcon;
 	private String[] imagenes;
 	private Map<Integer, String[]> spritesMap;

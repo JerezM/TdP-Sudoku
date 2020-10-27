@@ -2,7 +2,7 @@ package main.model.celda.entidadesGraficas;
 
 import javax.swing.ImageIcon;
 
-public interface EntidadGrafica {
+public interface EntidadGraficaCelda {
 
     /**
      * Actualiza el conjunto de sprites en base al nuevo valor parametrizado.
