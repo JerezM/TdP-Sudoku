@@ -45,34 +45,34 @@ public class EntidadGraficaTimerImpl implements EntidadGraficaTimer {
      */
     protected void inicializarMap() {
 
-        ImageIcon img0 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/numero-0.png"));
+        ImageIcon img0 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/number-0.png"));
         img0.setImage( img0.getImage());
 
-        ImageIcon img1 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/numbero-1.png"));
+        ImageIcon img1 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/number-1.png"));
         img1.setImage( img1.getImage());
 
-        ImageIcon img2 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/numero-2.png"));
+        ImageIcon img2 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/number-2.png"));
         img2.setImage( img2.getImage());
 
-        ImageIcon img3 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/numero-3.png"));
+        ImageIcon img3 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/number-3.png"));
         img3.setImage( img3.getImage());
 
-        ImageIcon img4 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/numero-4.png"));
+        ImageIcon img4 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/number-4.png"));
         img4.setImage( img4.getImage());
 
-        ImageIcon img5 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/numero-5.png"));
+        ImageIcon img5 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/number-5.png"));
         img5.setImage( img5.getImage());
 
-        ImageIcon img6 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/numero-6.png"));
+        ImageIcon img6 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/number-6.png"));
         img6.setImage( img6.getImage());
 
-        ImageIcon img7 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/numero-7.png"));
+        ImageIcon img7 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/number-7.png"));
         img7.setImage( img7.getImage());
 
-        ImageIcon img8 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/numero-8.png"));
+        ImageIcon img8 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/number-8.png"));
         img8.setImage( img8.getImage());
 
-        ImageIcon img9 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/numero-9.png"));
+        ImageIcon img9 = new ImageIcon(this.getClass().getResource("/resources/sprites/timer/number-9.png"));
         img9.setImage( img9.getImage());
 
         map.put(0, img0);
