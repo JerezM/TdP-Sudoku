@@ -31,8 +31,3 @@
 
 * Puede llegar a pasar que haya casos en lo que al seleccionar una celda haga miss clicks y no detecte la acción,
   en caso de que ocurra con solo volver a clickear la celda deseada debería seleccionarse y actuar con normalidad.
-
-* Estoy al tanto de que las celdas que vienen ya fijadas con el tablero no contienen un dibujo distinto a las demás,
-  por lo que va a resultarle difícil al usuario saber diferenciarlas en un estado avanzado del juego.
-  Puedo cambiarlas fácilmente de así solicitarlo pero considero que
-  el UX que demuestre este proyecto no era uno de los factores mas importantes a tener en cuenta.
