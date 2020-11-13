@@ -1,6 +1,6 @@
 # Sudoku
 
-## Consideraciones
+## Consideraciones para la catedra
 * El tablero y el timer recién se podrán visualizar  una vez se toque nuevo juego y se elija un archivo de .txt valido.
 
 * Restricciones para la validación del archivo:
